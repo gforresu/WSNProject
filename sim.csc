@@ -172,8 +172,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>39.41707364270882</x>
-        <y>77.82129304099429</y>
+        <x>37.41059541813484</x>
+        <y>72.37513786000777</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -226,8 +226,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>57.75553918566841</x>
-        <y>93.29983934485075</y>
+        <x>68.36120980127376</x>
+        <y>93.01319959848304</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -240,8 +240,7 @@
       </interface_config>
       <motetype_identifier>sky1</motetype_identifier>
     </mote>
-	
-	<mote>
+    <mote>
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
@@ -259,8 +258,7 @@
       </interface_config>
       <motetype_identifier>sky1</motetype_identifier>
     </mote>
-	
-	<mote>
+    <mote>
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
@@ -278,8 +276,7 @@
       </interface_config>
       <motetype_identifier>sky1</motetype_identifier>
     </mote>
-	
-	<mote>
+    <mote>
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
@@ -297,14 +294,12 @@
       </interface_config>
       <motetype_identifier>sky1</motetype_identifier>
     </mote>
-	
-	
-	<mote>
+    <mote>
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>57.75553918566841</x>
-        <y>99.29983934485075</y>
+        <x>78.39360092414368</x>
+        <y>101.87959706216016</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -317,13 +312,11 @@
       </interface_config>
       <motetype_identifier>sky1</motetype_identifier>
     </mote>
-	
-	
   </simulation>
   <plugin>
     org.contikios.cooja.plugins.SimControl
     <width>280</width>
-    <z>0</z>
+    <z>1</z>
     <height>160</height>
     <location_x>400</location_x>
     <location_y>0</location_y>
@@ -340,7 +333,7 @@
       <viewport>3.4886997099040222 0.0 0.0 3.4886997099040222 2.9491184075215 -67.70592995090288</viewport>
     </plugin_config>
     <width>400</width>
-    <z>1</z>
+    <z>4</z>
     <height>400</height>
     <location_x>1</location_x>
     <location_y>1</location_y>
@@ -352,11 +345,11 @@
       <formatted_time />
       <coloring />
     </plugin_config>
-    <width>1018</width>
-    <z>2</z>
+    <width>743</width>
+    <z>0</z>
     <height>356</height>
-    <location_x>410</location_x>
-    <location_y>159</location_y>
+    <location_x>1049</location_x>
+    <location_y>12</location_y>
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.TimeLine
@@ -372,6 +365,10 @@
       <mote>8</mote>
       <mote>9</mote>
       <mote>10</mote>
+      <mote>11</mote>
+      <mote>12</mote>
+      <mote>13</mote>
+      <mote>14</mote>
       <showRadioRXTX />
       <showRadioChannels />
       <showRadioHW />
@@ -379,10 +376,10 @@
       <zoomfactor>5000.0</zoomfactor>
     </plugin_config>
     <width>1418</width>
-    <z>3</z>
-    <height>344</height>
+    <z>2</z>
+    <height>438</height>
     <location_x>-4</location_x>
-    <location_y>495</location_y>
+    <location_y>401</location_y>
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.RadioLogger
@@ -392,11 +389,11 @@
       <showdups>false</showdups>
       <hidenodests>false</hidenodests>
     </plugin_config>
-    <width>642</width>
-    <z>4</z>
+    <width>572</width>
+    <z>3</z>
     <height>217</height>
-    <location_x>898</location_x>
-    <location_y>-7</location_y>
+    <location_x>435</location_x>
+    <location_y>167</location_y>
   </plugin>
 </simconf>
 

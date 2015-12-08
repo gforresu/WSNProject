@@ -1,6 +1,7 @@
 
 #include <Timer.h>
 #include "messages.h"
+#include <printf.h>
 
 module AppP
 {
@@ -45,6 +46,7 @@ implementation
 	
 	event void TimerInitialize.fired() 
 	{
+		printf("[APP] TDMA layer started \n");
 		call App_interface.start_tdma();			
 			
 	}
@@ -64,6 +66,9 @@ implementation
 			to_send.data = -1; //no packets to send
 		
 	
+		if(to_send.data == -1)
+			printf("[APP] There is NO packet to send! \n");
+		
 		return to_send;
 	
 	}

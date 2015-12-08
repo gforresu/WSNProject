@@ -10,6 +10,7 @@ implementation {
 components AppP, MainC, TDMA_c as tdma;
 components new Timer32C() as TimerInitialize;
 components new Timer32C() as TimerEpoch;
+components SerialPrintfC, SerialStartC;
 
 components CC2420TimeSyncMessageC as TSAM;
 components PacketLinkC;

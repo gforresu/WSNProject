@@ -160,11 +160,11 @@ bool incoming_message;
 				{
 					retries -- ;
 					epoch_reference_time += EPOCH_DURATION ;
-					printf("OUCH!! NO BEACON received after 2 slots... switching off the radio\n");
+					printf("[TDMA] OUCH!! NO BEACON received after 2 slots... switching off the radio\n");
 				}
 				
 				else
-					printf("OUCH!! NO CONFIRMATION received after 2 slots... switching off the radio\n");
+					printf("[TDMA] OUCH!! NO CONFIRMATION received after 2 slots... switching off the radio\n");
 		
 					
 				
@@ -174,7 +174,7 @@ bool incoming_message;
 			
 			else
 			{
-				printf("OUCH!! No beacon received after 5 ATTEMPTS ... resync \n");
+				printf("[TDMA] OUCH!! No beacon received after 5 ATTEMPTS ... resync \n");
 				resynchronize();
 			
 			}
@@ -194,7 +194,6 @@ bool incoming_message;
 		seed = (seed + TOS_NODE_ID)%100;
 		
 		call Seed.init(seed);
-	//	printf("New epoch started \n");
 		
 		if(IS_MASTER)
 		{
@@ -204,10 +203,8 @@ bool incoming_message;
 			
 			call TimerEpoch.startOneShotAt(epoch_reference_time, EPOCH_DURATION);
 
-			//call TimerSlots.startPeriodicAt(epoch_reference_time, SLOT_DURATION);
 			message_to_send = call AMSend.getPayload(&beacon, sizeof(BeaconMsg));
 			
-			//call SendBeacon.send(AM_BROADCAST_ADDR, &beacon, sizeof(BeaconMsg), epoch_reference_time);	
 			call TimerSendBeacon.startOneShotAt( epoch_reference_time , SLOT_DURATION/4 + (call Random.rand32()%(SLOT_DURATION/2)) ) ;
 		}
 		
@@ -226,12 +223,9 @@ bool incoming_message;
 			
 			current_slot = 0;//((BeaconMsg*) msg)->current_slot;
 		
-			printf(" [ %d ]- Beacon Received from %d  \n", TOS_NODE_ID, from);
-				// get the epoch start time (converted to our local time reference frame)
-			
-			//if(!joined)
+			printf("[TDMA] [ %d ]- Beacon Received from %d  \n", TOS_NODE_ID, from);
+
 			epoch_reference_time = call TSPacket.eventTime(msg);
-			// turn off the radio
 			
 							
 			join_message = call AMSend.getPayload(&join, sizeof(Msg));
@@ -268,7 +262,7 @@ bool incoming_message;
 			//Receiving a join request
 			{
 														
-				printf("Join received from %d - Slot %d assigned \n", from , last_slot_assigned);
+				printf("[TDMA][MASTER]Join received from %d - Slot %d assigned \n", from , last_slot_assigned);
 																		
 				
 				
@@ -291,10 +285,8 @@ bool incoming_message;
 		{
 			confirmation_message = (ConfMsg*) payload;
 					
-			//if(confirmation_message->slot[TOS_NODE_ID + 2] != -1)
 			{
-			 //	printf("OK! Received from MASTER the slot n. %d \n", confirmation_message->slot);//join_message->slot);
-				
+						
 				
 				my_slot = confirmation_message->slot ;
 						 
@@ -308,10 +300,6 @@ bool incoming_message;
 				
 					
 			}
-			
-			//else if(from != 1)//message delivered to wrong node
-				//printf("Error - Received a packet from %d \n", call AMPacket.source(msg));
-		
 		}
 					
 		
@@ -324,7 +312,7 @@ bool incoming_message;
 		
 		if(IS_SLAVE)
 		{
-			printf("Sending join request - sendind to %d \n", from);
+			printf("[TDMA] Sending join request - sendind to %d \n", from);
 
 			call AMSend.send( 1 , &join, sizeof(Msg));	
 		}
@@ -370,8 +358,10 @@ bool incoming_message;
 		
 		app_level_message = signal App_interface.receive_packet();
 		
-		if(IS_SLAVE && app_level_message.data >= 0)
+				
+		if(IS_SLAVE && (app_level_message.data != (-1) ))
 		{
+			
 			call AMControl.start();
 				
 			data_message = call AMSend.getPayload(&data, sizeof(Msg));
@@ -385,7 +375,7 @@ bool incoming_message;
 		}
 		
 		else
-			printf("No data from App level: radio off\n");
+			printf("[TDMA] No data from App level: radio off\n");
 		
 		
 		
@@ -394,7 +384,7 @@ bool incoming_message;
 	event void TimerOff.fired() {
 		
 		if(IS_MASTER)
-			printf("[MASTER] %d slaves joined \n", last_slot_assigned - 2);
+			printf("[TDMA][MASTER] %d slaves joined \n", last_slot_assigned - 2);
 		
 		
 		call AMControl.stop();
@@ -448,11 +438,8 @@ bool incoming_message;
 		{
 	
 			if ( call PacketLink.wasDelivered(&data) )
-			{
-				printf("[PacketLink.wasDelivered] Data has been successfully received from master \n");
-				incoming_message = FALSE;
-			
-			}	
+				printf("[TDMA][PacketLink.wasDelivered] Data has been successfully received from master \n");
+
 				
 
 		}
