@@ -59,15 +59,15 @@ implementation
 	event Msg App_interface.receive_packet()
 	{
 				
-		if( (call Random.rand16()%2) == 0)					//decides wether or not 														
-			to_send.data = (call Random.rand16())%50 ;		//to send a packet if a random number is even  
+	//	if( (call Random.rand16()%2) == 0)					//decides wether or not 														
+		//	to_send.data = (call Random.rand16())%50 ;		//to send a packet if a random number is even  
 		
-		else
-			to_send.data = -1; //no packets to send
+	//	else
+			to_send.data = 5; //no packets to send
 		
 	
-		if(to_send.data == -1)
-			printf("[APP] There is NO packet to send! \n");
+		//if(to_send.data == -1)
+		//	printf("[APP] There is NO packet to send! \n");
 		
 		return to_send;
 	
