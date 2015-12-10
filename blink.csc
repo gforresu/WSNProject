@@ -46,8 +46,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>47.13763651494426</x>
-        <y>0.20373828264880878</y>
+        <x>14.687565827993376</x>
+        <y>41.16013817880041</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -64,8 +64,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>32.46552912220574</x>
-        <y>25.692024238843445</y>
+        <x>25.849495292827402</x>
+        <y>52.15615955635679</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -82,8 +82,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>17.03607226251942</x>
-        <y>51.13270469085199</y>
+        <x>2.228758453910764</x>
+        <y>33.80499704248015</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -100,8 +100,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>-3.9863036282325357</x>
-        <y>73.02797178780753</y>
+        <x>5.780222500849771</x>
+        <y>53.80996875961333</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -118,8 +118,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>18.65486223833891</x>
-        <y>79.51294575854762</y>
+        <x>23.380600687894873</x>
+        <y>32.88565972292886</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -136,7 +136,7 @@
   <plugin>
     org.contikios.cooja.plugins.SimControl
     <width>280</width>
-    <z>1</z>
+    <z>0</z>
     <height>160</height>
     <location_x>287</location_x>
     <location_y>-1</location_y>
@@ -153,7 +153,7 @@
       <viewport>3.1741071073049865 0.0 0.0 3.1741071073049865 72.28931831461216 48.27735429263318</viewport>
     </plugin_config>
     <width>286</width>
-    <z>2</z>
+    <z>1</z>
     <height>416</height>
     <location_x>1</location_x>
     <location_y>1</location_y>
@@ -166,7 +166,7 @@
       <coloring />
     </plugin_config>
     <width>396</width>
-    <z>5</z>
+    <z>3</z>
     <height>257</height>
     <location_x>288</location_x>
     <location_y>160</location_y>
@@ -182,11 +182,11 @@
       <showRadioRXTX />
       <showRadioHW />
       <showLEDs />
-      <zoomfactor>2000.0</zoomfactor>
+      <zoomfactor>5000.0</zoomfactor>
     </plugin_config>
     <width>1138</width>
-    <z>3</z>
-    <height>179</height>
+    <z>2</z>
+    <height>296</height>
     <location_x>4</location_x>
     <location_y>422</location_y>
   </plugin>

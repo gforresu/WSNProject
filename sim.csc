@@ -46,8 +46,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>66.16930324378504</x>
-        <y>72.52169684547862</y>
+        <x>69.26501250455632</x>
+        <y>81.12088923650998</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -298,8 +298,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>78.39360092414368</x>
-        <y>101.87959706216016</y>
+        <x>87.68072870645756</x>
+        <y>111.16672484447403</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -316,7 +316,7 @@
   <plugin>
     org.contikios.cooja.plugins.SimControl
     <width>280</width>
-    <z>0</z>
+    <z>1</z>
     <height>160</height>
     <location_x>400</location_x>
     <location_y>0</location_y>
@@ -330,7 +330,7 @@
       <skin>org.contikios.cooja.plugins.skins.TrafficVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.UDGMVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.LEDVisualizerSkin</skin>
-      <viewport>3.488699709904023 0.0 0.0 3.488699709904023 -72.40768159247871 -94.36512995090284</viewport>
+      <viewport>2.9072497582533527 0.0 0.0 2.9072497582533527 -2.0397346603989597 -76.94427495908562</viewport>
     </plugin_config>
     <width>400</width>
     <z>2</z>
@@ -346,10 +346,10 @@
       <coloring />
     </plugin_config>
     <width>743</width>
-    <z>3</z>
-    <height>382</height>
-    <location_x>1049</location_x>
-    <location_y>12</location_y>
+    <z>4</z>
+    <height>400</height>
+    <location_x>1081</location_x>
+    <location_y>0</location_y>
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.TimeLine
@@ -372,10 +372,10 @@
       <showRadioRXTX />
       <showRadioHW />
       <showLEDs />
-      <zoomfactor>500.0</zoomfactor>
+      <zoomfactor>1000.0</zoomfactor>
     </plugin_config>
     <width>1418</width>
-    <z>1</z>
+    <z>0</z>
     <height>438</height>
     <location_x>-4</location_x>
     <location_y>401</location_y>
@@ -389,7 +389,7 @@
       <hidenodests>false</hidenodests>
     </plugin_config>
     <width>572</width>
-    <z>4</z>
+    <z>3</z>
     <height>217</height>
     <location_x>435</location_x>
     <location_y>167</location_y>

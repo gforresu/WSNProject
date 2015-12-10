@@ -106,7 +106,7 @@ int misses;
 	*/
 	event void TimerEpoch.fired()
 	{
-		epoch_reference_time = 0;
+		//epoch_reference_time = 0;
 		//joined=FALSE;
 		resync = FALSE;	
 		//join_booked=FALSE;
@@ -135,8 +135,6 @@ int misses;
 	{
 				
 		call PacketLink.setRetries(&data, 1);
-		
-		//call PacketLink.setRetries(&data, 1);
 			
 		call AMSend.send( 1 , &data, sizeof(Msg));
 
@@ -209,7 +207,7 @@ int misses;
 	
 	command void App_interface.start_tdma()
 	{
-		////
+		////Called only the first time
 		if( ! initialize )
 		{
 			
@@ -225,7 +223,7 @@ int misses;
 		
 		seed = (seed + TOS_NODE_ID)%100;
 		
-		//call Seed.init(seed);
+		call Seed.init(seed);
 		
 		if(IS_MASTER)
 		{
@@ -282,7 +280,7 @@ int misses;
 				//else
 				{
 				//	if(misses < 3)
-					random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION ) + EPOCH_DURATION*(call Random.rand16() % 6) ;
+					random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION / 2)+ EPOCH_DURATION*(call Random.rand16() % 2) ;
 				
 				//	else
 					//	random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION / 2 ) ;
@@ -332,8 +330,7 @@ int misses;
 					
 			if(IS_MASTER && !join_message->is_data) //is a join message
 			{	
-
-				
+				atomic
 				{	
 					printf("Received join from %d \n", from);
 					
@@ -341,9 +338,10 @@ int misses;
 				
 					confirmation_message -> slot = last_slot_assigned ;			
 												
-					call PacketLink.setRetries(&conf, 1);
-					
-					call AMSend.send( from , &conf, sizeof(ConfMsg));		 
+					call PacketLink.setRetries(&conf, 1 );
+										
+					call AMSend.send( from , &conf, sizeof(ConfMsg));
+	
 
 				}
 		} 
@@ -356,6 +354,8 @@ int misses;
 			{
 									
 				my_slot = confirmation_message->slot ;
+				
+				printf("Received slot number %d \n", my_slot);
 						 
 				resync = FALSE;
 				joined=TRUE;
@@ -381,9 +381,7 @@ int misses;
 		if(IS_SLAVE)
 		{
 			printf("[TDMA] Sending join request - sendind to %d \n", from);
-
-			//if( call AMSend.send( 1 , &join, sizeof(Msg)) == EBUSY)
-			call AMSend.send( 1 , &join, 0);	
+			call AMSend.send( 1 , &join, sizeof(Msg));	
 		}
 		
 			
@@ -493,20 +491,21 @@ int misses;
 		
 		
 		if(IS_MASTER) 
-		{
-	
-			//atomic
-			{
-				//if( call PacketLink.wasDelivered(&conf)  ) 
-				{
-				
+		{	
+			atomic
+			{	
+				if( call PacketLink.wasDelivered(&conf) ) 
+				{									
 					slots[last_slot_assigned] = from;
-				
-					last_slot_assigned = (last_slot_assigned+1) % MAX_SLOTS;
-				
+					
 					printf("[TDMA][MASTER]Join received from %d - Slot %d assigned \n", from , last_slot_assigned);		
-				
+					
+					last_slot_assigned = (last_slot_assigned+1) % (MAX_SLOTS+1);			
 				}
+				
+				else
+					printf("COLLISION! Slot assignment failed \n");
+				
 						
 			}
 
