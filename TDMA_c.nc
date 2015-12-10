@@ -21,17 +21,17 @@ implementation {
 	components new Timer32C() as TimerSlots;
 	components new AMSenderC( AM_DATA) as SenderC;
 	components new AMReceiverC(AM_DATA) as ReceiverC;
-	//components RandomC;
+
 	components RandomC;
 	components RandomMlcgC;
 	components CC2420TimeSyncMessageC as TSAM;
-	components CC2420ActiveMessageC;
+	
 	components ActiveMessageC;
 
 	AppP.TSPacket -> TSAM.TimeSyncPacket32khz;
 	AppP.SendBeacon -> TSAM.TimeSyncAMSend32khz[AM_BEACONMSG]; // wire to the beacon AM type
 	AppP.ReceiveBeacon -> TSAM.Receive[AM_BEACONMSG];       
-	
+	//AppP.RadioBackoff -> RadioBackoff;
 	
 	
 	AppP.AMSend -> SenderC;

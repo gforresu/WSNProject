@@ -22,11 +22,13 @@ implementation
 	uint32_t epoch_reference_time;
 	message_t beacon;
 	Msg to_send;
+	bool first_run;
 
 	event void Boot.booted() 
 	{
 		// turn on the radio
 		call AMControl.start();
+		first_run = TRUE;
 
 		
 	}
@@ -36,7 +38,7 @@ implementation
 	event void AMControl.startDone(error_t err) 
 	{
 			
-		if (IS_MASTER) 
+		if (IS_MASTER && first_run) 
 		{
 			call TimerInitialize.startOneShot(3*SECOND);	//call TDMA layer after 3 seconds				
 		}
@@ -47,6 +49,7 @@ implementation
 	event void TimerInitialize.fired() 
 	{
 		printf("[APP] TDMA layer started \n");
+		first_run = FALSE;
 		call App_interface.start_tdma();			
 			
 	}
