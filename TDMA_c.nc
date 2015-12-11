@@ -20,6 +20,21 @@ implementation {
 	components new Timer32C() as TimerSendBeacon;
 	components new Timer32C() as TimerSlots;
 	components new AMSenderC( AM_DATA) as SenderC;
+	
+	////////
+	/*
+	components new AMSenderC( AM_JOIN_REQ) as SendJoinC;
+	components new AMSenderC( AM_JOIN_REP) as SendJoinReplyC;
+	components new AMReceiverC( AM_JOIN_REP) as ReceiveJoinReplyC;
+	components new AMReceiverC(AM_JOIN_REQ) as ReceiverJoinC;
+	
+	AppP.ReceiveJoin -> ReceiveJoinC;
+	AppP.SendJoin -> SendJoinC;
+	AppP.SendJoinReply -> SendJoinReplyC;
+	*/
+	///////
+	
+	
 	components new AMReceiverC(AM_DATA) as ReceiverC;
 
 	components RandomC;

@@ -1,10 +1,10 @@
 #ifndef MESSAGES_H
 #define MESSAGES_H
-#define MAX_SLOTS 15
+#define MAX_SLOTS 17
 
 enum {
 	AM_BEACONMSG = 130,
-	AM_DATA = 100,
+	AM_DATA = 150,
 	//AM_JOIN_REQ = 150,
 	//AM_JOIN_REP = 166,
 };
