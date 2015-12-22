@@ -463,7 +463,7 @@ int misses;
 	event void TimerOff.fired() {
 		
 		if(IS_MASTER)
-			printf("[TDMA][MASTER] %d slaves joined \n", last_slot_assigned - 2);
+			printf("[TDMA][MASTER] %d slaves joined \n", last_slot_assigned );
 		
 		
 		call AMControl.stop();
