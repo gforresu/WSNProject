@@ -139,7 +139,7 @@ int misses;
 	event void TimerSlots.fired()
 	{
 				
-		call PacketLink.setRetries(&data, 0);
+		call PacketLink.setRetries(&data, 1);
 			
 		call AMSend.send( 1 , &data, sizeof(Msg));
 
@@ -457,8 +457,7 @@ int misses;
 				
 			data_message = call AMSend.getPayload(&data, sizeof(Msg));
 			
-			call PacketLink.setRetries(&data, 1);
-			
+						
 			data_message -> is_data = TRUE;
 			
 			data_message-> data = app_level_message.data;
