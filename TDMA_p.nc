@@ -54,7 +54,9 @@ implementation {
 #define EPOCHS 16
 
 void start_epochs();
+int check_assigned_slot(int);
 void resynchronize();
+void send_join_request();
 
 
 uint32_t epoch_reference_time;
@@ -137,16 +139,28 @@ int misses;
 	event void TimerSlots.fired()
 	{
 				
-		call PacketLink.setRetries(&data, 1);
+		call PacketLink.setRetries(&data, 0);
 			
 		call AMSend.send( 1 , &data, sizeof(Msg));
 
 	}
 	
 	
+	
 		event void TimerCheckJoined.fired()
 	{
-		start_epochs();
+	
+		if(IS_MASTER)
+			start_epochs();
+			
+		
+		else //slaves stop turn off their radio if master didn't reply
+		{
+			if( ! joined)
+				call AMControl.stop();
+		}
+			
+			
 	}
 	
 	
@@ -159,42 +173,24 @@ int misses;
 		{
 			if(retries > 0 )
 			{
-				//call AMControl.stop();
-				
-				if(! joined )
-				{
-					call AMControl.stop();
-					misses = (misses + 1) % 20 ;
-				}
-					
+	
 				
 				if(! beacon_received )
 				{
-					call AMControl.stop();
+					//call AMControl.stop();
+					
 					retries -- ;
 					epoch_reference_time = epoch_reference_time + EPOCH_DURATION ;
-					call TimerCheckForBeacon.startOneShotAt(epoch_reference_time, 2* SLOT_DURATION + SLOT_DURATION/10);
+					//call TimerCheckForBeacon.startOneShotAt(epoch_reference_time, 2* SLOT_DURATION + SLOT_DURATION/10);
 					printf("[TDMA] OUCH!! NO BEACON received in this epoch\n");
-				}
-				
-				/*
-				else if( beacon_received && ! joined)
-				{
-					call AMControl.stop();
-				}
-				*/
-				/*
-				else if( ! beacon_received && ! joined)
-				{
-					epoch_reference_time = epoch_reference_time + EPOCH_DURATION ;
-					call AMControl.stop();
-				}
-					*/
-				
-				//else
-					//printf("[TDMA] OUCH!! NO CONFIRMATION received after 2 slots... switching off the radio\n");
-		
 					
+					
+					if(!joined)
+						send_join_request();
+				
+					
+					
+				}
 				
 					
 			}
@@ -219,7 +215,7 @@ int misses;
 		if( ! initialize )
 		{
 			
-			last_slot_assigned = 2; //slot 0 and 1 are reserved
+			last_slot_assigned = 1; //slot 0 and 1 are reserved
 			//current_slot = 0; 
 			my_slot = -1;
 			
@@ -239,7 +235,7 @@ int misses;
 			if( epoch_reference_time == 0)
 				epoch_reference_time = call TimerSendBeacon.getNow();
 			
-			call TimerEpoch.startOneShotAt(epoch_reference_time, EPOCH_DURATION);
+			call TimerEpoch.startPeriodicAt(epoch_reference_time, EPOCH_DURATION);
 
 			message_to_send = call AMSend.getPayload(&beacon, sizeof(BeaconMsg));
 			
@@ -268,66 +264,56 @@ int misses;
 
 			epoch_reference_time = call TSPacket.eventTime(msg);
 			
+			call TimerCheckForBeacon.startPeriodicAt(epoch_reference_time, EPOCH_DURATION + SLOT_DURATION );
+			
+			call TimerEpoch.startPeriodicAt(epoch_reference_time, EPOCH_DURATION);
+			
 			if( ! joined )	//not joined yet
 			{
 				
-				join_message = call AMSend.getPayload(&join, sizeof(Msg));
-
-				//slaves send join request at slot 1 
+				send_join_request();
 				
-				
-				/*
-				if(! join_booked) 
-				{
-					join_booked= TRUE;
-					random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION /2) + EPOCH_DURATION*(call Random.rand16() % 5)   ;
-				
-				}
-				
-				*/
-				//else
-				{
-					//if(misses < 5)
-					random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION - SLOT_DURATION/10)+ EPOCH_DURATION*(call Random.rand16() % 2) ;
-				
-				//	else
-						//random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION / 2 ) ;
-				}	
-				
-				printf("Random delay %lu \n", random_delay); //+ EPOCH_DURATION*(call Random.rand32());//- SLOT_DURATION/10) ;
-			
-			
-				call TimerFirstSlot.startOneShotAt(epoch_reference_time, random_delay);
-				
+				//non funziona perché non controlla dopo 2 slot di non avere ricevuto alcuna risposta
 				//after receiving the first beacon checks wether the next ones have been received				
-				call TimerCheckForBeacon.startOneShotAt(epoch_reference_time, 2* SLOT_DURATION + SLOT_DURATION/10);
-								
 				
-			}
-			
+				
+				//TIMER CHECK JOIN
+
+			}	
+				
 			else //already joined
-			{
 				start_epochs();
 					
-			}
-			
-						
-			
-			
-					
-			call TimerEpoch.startOneShotAt(epoch_reference_time, EPOCH_DURATION);
-			
-			
+		}	
 		
-			
-			
-		}
-			
+		else
+			printf("Node %d Beacon is not a valid packet \n", TOS_NODE_ID);			
+								
+				
 		
 		return msg;		
 		
 	}
 	
+	
+	void send_join_request()
+	{
+	
+		join_message = call AMSend.getPayload(&join, sizeof(Msg));
+
+				//slaves send join request at slot 1 
+	
+		random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION*3/4 ) ;
+	
+		printf("Random delay %lu \n", random_delay); //+ EPOCH_DURATION*(call Random.rand32());//- SLOT_DURATION/10) ;
+	
+	
+	
+		call TimerFirstSlot.startOneShotAt(epoch_reference_time, random_delay); //checks for master reply
+		
+		call TimerCheckJoined.startOneShotAt(epoch_reference_time, 2*SLOT_DURATION);
+	
+	}
 	
 	event message_t* Receive.receive(message_t* msg, void* payload, uint8_t length)
 	{
@@ -340,15 +326,42 @@ int misses;
 			{	
 				atomic
 				{	
-					printf("Received join from %d \n", from);
+					call PacketLink.setRetries(&conf, 0 );
 					
-					confirmation_message = call AMSend.getPayload(&conf, sizeof(ConfMsg));
+					if( check_assigned_slot(from) == -1 )
+					{
+					
+						//printf("Received join from %d \n", from);
+					
+						confirmation_message = call AMSend.getPayload(&conf, sizeof(ConfMsg));
 				
-					confirmation_message -> slot = last_slot_assigned ;			
-												
-					call PacketLink.setRetries(&conf, 1 );
-										
-					call AMSend.send( from , &conf, sizeof(ConfMsg));
+						confirmation_message -> slot = last_slot_assigned +1;			
+																		
+						if ( call AMSend.send( from , &conf, sizeof(ConfMsg)) == SUCCESS)
+						{
+							last_slot_assigned += 1;	
+							slots[last_slot_assigned] = from;
+									
+					
+							printf("[TDMA][MASTER]Join received from %d - Slot %d assigned \n", from , last_slot_assigned);	
+						}
+					
+					}
+					
+					
+					else
+					{
+						confirmation_message = call AMSend.getPayload(&conf, sizeof(ConfMsg));
+				
+						confirmation_message -> slot = check_assigned_slot(from);			
+																					
+						call AMSend.send( from , &conf, sizeof(ConfMsg));
+					
+					}
+						
+						
+					
+					
 	
 
 				}
@@ -390,7 +403,8 @@ int misses;
 		
 		if(IS_SLAVE)
 		{
-			printf("[TDMA] Sending join request - sendind to %d \n", from);
+			printf("[TDMA] Sending join request - sendind to MASTER \n");
+			call PacketLink.setRetries(&join, 0);
 			call AMSend.send( 1 , &join, sizeof(Msg));	
 		}
 		
@@ -418,10 +432,10 @@ int misses;
 		}
 		
 		
-		else if(IS_MASTER) //master check the number of joined members 
+		else if(IS_MASTER) //master switch off the radio
 		{		
 			
-			call TimerOff.startOneShotAt(epoch_reference_time, SLOT_DURATION*last_slot_assigned );	
+			call TimerOff.startOneShotAt(epoch_reference_time, SLOT_DURATION*(last_slot_assigned +1) );	
 		}
 		
 		
@@ -443,13 +457,13 @@ int misses;
 				
 			data_message = call AMSend.getPayload(&data, sizeof(Msg));
 			
-			call PacketLink.setRetries(&data, 0);
+			call PacketLink.setRetries(&data, 1);
 			
 			data_message -> is_data = TRUE;
 			
 			data_message-> data = app_level_message.data;
 				
-			call TimerSlots.startOneShotAt(epoch_reference_time, start_slot + (call Random.rand16()%(SLOT_DURATION/2) + SLOT_DURATION/10  ));
+			call TimerSlots.startOneShotAt(epoch_reference_time, start_slot + (call Random.rand16()%(SLOT_DURATION/4)  ));
 		
 		}
 		
@@ -463,7 +477,7 @@ int misses;
 	event void TimerOff.fired() {
 		
 		if(IS_MASTER)
-			printf("[TDMA][MASTER] %d slaves joined \n", last_slot_assigned );
+			printf("[TDMA][MASTER] %d slaves requested to join \n", last_slot_assigned );
 		
 		
 		call AMControl.stop();
@@ -475,7 +489,7 @@ int misses;
 	
 	event void SendBeacon.sendDone(message_t* msg, error_t err)
 	{
-		call TimerCheckJoined.startOneShotAt(epoch_reference_time, 2*SLOT_DURATION + SLOT_DURATION/10) ; //waits 2 slots
+		call TimerCheckJoined.startOneShotAt(epoch_reference_time, 2*SLOT_DURATION ) ; //waits 2 slots
 		
 	}
 	
@@ -504,17 +518,20 @@ int misses;
 		{	
 			atomic
 			{	
-				if( call PacketLink.wasDelivered(&conf)) 
-				{									
-					slots[last_slot_assigned] = from;
+				//if( call PacketLink.wasDelivered(&conf)) 
+				{								
+				
+					//last_slot_assigned = (last_slot_assigned+1) % (MAX_SLOTS);	
+					//slots[last_slot_assigned] = from;
+									
 					
-					printf("[TDMA][MASTER]Join received from %d - Slot %d assigned \n", from , last_slot_assigned);		
+					//printf("[TDMA][MASTER]Join received from %d - Slot %d assigned \n", from , last_slot_assigned);		
 					
-					last_slot_assigned = (last_slot_assigned+1) % (MAX_SLOTS);			
+								
 				}
 				
-				else
-					printf("COLLISION! Slot assignment failed \n");
+				//else
+					//printf("COLLISION! Slot assignment failed \n");
 				
 						
 			}
@@ -534,6 +551,21 @@ int misses;
 		 
 	
 	}
+	
+	
+	int check_assigned_slot(int slave)
+	{
+		int i;
+		
+		for(i=0; i<= last_slot_assigned; i++)
+			if( slots[i] == slave )
+				return i ;
+		
+		return -1 ;
+			
+	
+	}
+	
 	
 
 
