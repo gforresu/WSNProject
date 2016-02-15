@@ -60,6 +60,7 @@ void send_join_request();
 
 
 uint32_t epoch_reference_time;
+uint32_t current_time;
 uint32_t start_slot;
 uint32_t end_slot;
 BeaconMsg* message_to_send;
@@ -157,7 +158,12 @@ int misses;
 		else //slaves turn off their radio if master didn't reply
 		{
 			if( ! joined)
+			{
+				printf("TimerCheckJoined- Master didn't reply during the first slot. Switching off the radio\n");
+				misses ++ ;
 				call AMControl.stop();
+			}
+				
 		}
 			
 			
@@ -170,7 +176,7 @@ int misses;
 		printf("TimerCheckForBeacon \n");
 		
 		//if(!joined && IS_SLAVE)
-		{
+		
 			if(retries > 0 )
 			{
 	
@@ -203,7 +209,7 @@ int misses;
 			
 			}
 	
-		}
+		
 				
 			
 					
@@ -297,8 +303,12 @@ int misses;
 		join_message = call AMSend.getPayload(&join, sizeof(Msg));
 
 				//slaves send join request at slot 1 
-	
-		random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION*7/8 ) ;
+		if (misses < 7)
+			random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION*6/8 )  ;
+			
+		else
+			random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION/2 ) ;
+			
 	
 		printf("Random delay %lu \n", random_delay); //+ EPOCH_DURATION*(call Random.rand32());//- SLOT_DURATION/10) ;
 	
@@ -316,8 +326,11 @@ int misses;
 		
 			join_message = (Msg*) payload;
 			from = call AMPacket.source(msg);
+			
+			current_time = call TimerSendBeacon.getNow();
+			
 					
-			if(IS_MASTER && !join_message->is_data && last_slot_assigned < MAX_SLOTS) //is a join message
+			if(IS_MASTER && !join_message->is_data && last_slot_assigned < MAX_SLOTS && current_time <= epoch_reference_time+SLOT_DURATION*2) //is a join message
 			{	
 				atomic
 				{	
@@ -375,6 +388,7 @@ int misses;
 						 
 				resync = FALSE;
 				joined=TRUE;
+				misses = 0;
 				
 				start_epochs();	
 				
