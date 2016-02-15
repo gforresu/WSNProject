@@ -45,13 +45,14 @@ implementation {
 #define EPOCH_DURATION (SECOND*2)
 #define IS_MASTER (TOS_NODE_ID==1)
 #define IS_SLAVE (TOS_NODE_ID != 1)
-#define SLOT_DURATION (SECOND/50)
+#define SLOT_DURATION (SECOND/60)
+#define SAFE_PADDING (SECOND/600)
 
 #define ON_DURATION (SECOND/16)
 
 #define MAX_SLOTS 17
 #define MAX_RETRIES 5
-#define EPOCHS 16
+
 
 void start_epochs();
 int check_assigned_slot(int);
@@ -265,8 +266,7 @@ int misses;
 			from = call AMPacket.source(msg);
 		
 			printf("[TDMA] [ %d ]- Beacon Received from %d  \n", TOS_NODE_ID, from);
-			
-			//call AMControl.stop();
+
 
 			epoch_reference_time = call TSPacket.eventTime(msg);
 			
@@ -275,12 +275,9 @@ int misses;
 			call TimerEpoch.startPeriodicAt(epoch_reference_time, EPOCH_DURATION);
 			
 			if( ! joined )	//not joined yet
-			{
-				
 				send_join_request();				
-				//TIMER CHECK JOIN
+				
 
-			}	
 				
 			else //already joined
 				start_epochs();
@@ -304,16 +301,21 @@ int misses;
 
 				//slaves send join request at slot 1 
 		if (misses < 7)
-			random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION*6/8 )  ;
+			random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION*6/8 )  + SLOT_DURATION/20 - SAFE_PADDING;
 			
 		else
 			random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION/2 ) ;
+			
+			
+		//if( (2*SLOT_DURATION - random_delay) <= SAFE_PADDING )
+			//random_delay -= SAFE_PADDING; 
+			
 			
 	
 		printf("Random delay %lu \n", random_delay); //+ EPOCH_DURATION*(call Random.rand32());//- SLOT_DURATION/10) ;
 	
 	
-	
+		
 		call TimerFirstSlot.startOneShotAt(epoch_reference_time, random_delay); //send the request at random time 
 		
 		call TimerCheckJoined.startOneShotAt(epoch_reference_time, 2*SLOT_DURATION); //checks for master reply
