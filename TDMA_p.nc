@@ -154,7 +154,7 @@ int misses;
 			start_epochs();
 			
 		
-		else //slaves stop turn off their radio if master didn't reply
+		else //slaves turn off their radio if master didn't reply
 		{
 			if( ! joined)
 				call AMControl.stop();
@@ -271,12 +271,7 @@ int misses;
 			if( ! joined )	//not joined yet
 			{
 				
-				send_join_request();
-				
-				//non funziona perché non controlla dopo 2 slot di non avere ricevuto alcuna risposta
-				//after receiving the first beacon checks wether the next ones have been received				
-				
-				
+				send_join_request();				
 				//TIMER CHECK JOIN
 
 			}	
@@ -303,15 +298,15 @@ int misses;
 
 				//slaves send join request at slot 1 
 	
-		random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION*3/4 ) ;
+		random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION*7/8 ) ;
 	
 		printf("Random delay %lu \n", random_delay); //+ EPOCH_DURATION*(call Random.rand32());//- SLOT_DURATION/10) ;
 	
 	
 	
-		call TimerFirstSlot.startOneShotAt(epoch_reference_time, random_delay); //checks for master reply
+		call TimerFirstSlot.startOneShotAt(epoch_reference_time, random_delay); //send the request at random time 
 		
-		call TimerCheckJoined.startOneShotAt(epoch_reference_time, 2*SLOT_DURATION);
+		call TimerCheckJoined.startOneShotAt(epoch_reference_time, 2*SLOT_DURATION); //checks for master reply
 	
 	}
 	
@@ -462,12 +457,16 @@ int misses;
 			
 			data_message-> data = app_level_message.data;
 				
-			call TimerSlots.startOneShotAt(epoch_reference_time, start_slot + (call Random.rand16()%(SLOT_DURATION/4)  ));
+			call TimerSlots.startOneShotAt(epoch_reference_time, start_slot + (call Random.rand16()%(SLOT_DURATION/4) + SLOT_DURATION/10  ));
 		
 		}
 		
 		else
-			printf("[TDMA] No data from App level: radio off\n");
+		{
+			call AMControl.stop();
+			printf("[TDMA] No data from App level: radio off\n");	
+		}
+			
 		
 		
 		

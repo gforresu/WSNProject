@@ -1,128 +1,87 @@
-[14:45:00 - main] [Cooja.java:1314] [INFO] - > Starting Cooja
-[14:45:00 - main] [Cooja.java:2855] [INFO] - External tools default settings: /external_tools_linux.config
-[14:45:00 - main] [Cooja.java:2885] [INFO] - External tools user settings: /home/user/.cooja.user.properties
-[14:45:01 - main] [Simulation.java:421] [INFO] - Simulation random seed: 123456
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:01 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:02 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:45:02 - main] [Visualizer.java:256] [INFO] - Registered external visualizer: org.contikios.cooja.plugins.skins.DGRMVisualizerSkin
-[14:45:02 - main] [TimeLine.java:567] [INFO] - Zoom level: 200.0 microseconds/pixel 
-[14:45:04 - Thread-0] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455457504077
-[14:45:21 - Thread-0] [Msp802154Radio.java:191] [WARN] - Turning off radio while transmitting a packet
-[14:45:21 - Thread-0] [Msp802154Radio.java:127] [ERROR] - Bad outgoing sync sequence 0 3f 96 0 0
-[14:45:29 - Thread-0] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455457529839	Duration: 25762 ms	Simulated time 20477 ms	Ratio 0.7948220315956993
-[14:45:36 - Thread-1] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455457536711
-[14:45:40 - Thread-1] [Msp802154Radio.java:191] [WARN] - Turning off radio while transmitting a packet
-[14:45:40 - Thread-1] [Msp802154Radio.java:127] [ERROR] - Bad outgoing sync sequence 0 3f 96 0 0
-[14:45:48 - Thread-1] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455457548640	Duration: 11929 ms	Simulated time 32319 ms	Ratio 2.7092799061111577
-[14:46:09 - Thread-2] [Simulation.java:421] [INFO] - Simulation random seed: 123456
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:46:09 - Thread-2] [TimeLine.java:567] [INFO] - Zoom level: 200.0 microseconds/pixel 
-[14:46:10 - Thread-3] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455457570189
-[14:46:29 - Thread-3] [Msp802154Radio.java:191] [WARN] - Turning off radio while transmitting a packet
-[14:46:29 - Thread-3] [Msp802154Radio.java:127] [ERROR] - Bad outgoing sync sequence 0 3f 96 0 0
-[14:46:31 - Thread-3] [Msp802154Radio.java:191] [WARN] - Turning off radio while transmitting a packet
-[14:46:31 - Thread-3] [Msp802154Radio.java:127] [ERROR] - Bad outgoing sync sequence 0 3f 96 0 0
-[14:46:45 - Thread-3] [Msp802154Radio.java:191] [WARN] - Turning off radio while transmitting a packet
-[14:46:45 - Thread-3] [Msp802154Radio.java:127] [ERROR] - Bad outgoing sync sequence 0 3f 96 0 0
-[14:46:51 - Thread-3] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455457611632	Duration: 41443 ms	Simulated time 35980 ms	Ratio 0.868180392346114
-[14:46:58 - Thread-4] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455457618797
-[14:47:08 - Thread-4] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455457628946	Duration: 10149 ms	Simulated time 46123 ms	Ratio 4.544585673465366
-[14:47:18 - Thread-5] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455457638214
-[14:47:33 - Thread-5] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455457653989	Duration: 15775 ms	Simulated time 61893 ms	Ratio 3.923486529318542
-[14:47:40 - Thread-6] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455457660987
-[14:47:59 - Thread-6] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455457679147	Duration: 18160 ms	Simulated time 80021 ms	Ratio 4.406442731277533
-[14:48:08 - Thread-7] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455457688605
-[14:48:34 - Thread-7] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455457714539	Duration: 25934 ms	Simulated time 105950 ms	Ratio 4.085370556026837
-[14:49:29 - Thread-8] [Simulation.java:421] [INFO] - Simulation random seed: 123456
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:29 - Thread-8] [TimeLine.java:567] [INFO] - Zoom level: 200.0 microseconds/pixel 
-[14:49:39 - Thread-9] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455457779261
-[14:49:42 - Thread-9] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455457782110	Duration: 2849 ms	Simulated time 1644 ms	Ratio 0.577044577044577
-[14:49:42 - Thread-10] [Simulation.java:421] [INFO] - Simulation random seed: 123456
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:49:42 - Thread-10] [TimeLine.java:567] [INFO] - Zoom level: 200.0 microseconds/pixel 
-[14:49:42 - Thread-11] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455457782756
-[14:49:59 - Thread-11] [Msp802154Radio.java:191] [WARN] - Turning off radio while transmitting a packet
-[14:49:59 - Thread-11] [Msp802154Radio.java:127] [ERROR] - Bad outgoing sync sequence 0 3f 96 0 0
-[14:50:20 - Thread-11] [Msp802154Radio.java:191] [WARN] - Turning off radio while transmitting a packet
-[14:50:20 - Thread-11] [Msp802154Radio.java:127] [ERROR] - Bad outgoing sync sequence 0 3f 96 0 0
-[14:50:33 - Thread-11] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455457833351	Duration: 50595 ms	Simulated time 86391 ms	Ratio 1.7075007411799585
-[14:50:50 - Thread-12] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455457850798
-[14:51:07 - Thread-12] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455457867824	Duration: 17026 ms	Simulated time 120364 ms	Ratio 7.069423235052273
-[14:52:53 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 100.0 microseconds/pixel 
-[14:54:33 - Thread-13] [Simulation.java:421] [INFO] - Simulation random seed: 123456
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
-[14:54:33 - Thread-13] [TimeLine.java:567] [INFO] - Zoom level: 100.0 microseconds/pixel 
-[14:54:34 - Thread-14] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455458074079
-[14:54:50 - Thread-14] [Msp802154Radio.java:191] [WARN] - Turning off radio while transmitting a packet
-[14:54:50 - Thread-14] [Msp802154Radio.java:127] [ERROR] - Bad outgoing sync sequence 0 3f 96 0 0
-[14:54:57 - Thread-14] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455458097708	Duration: 23629 ms	Simulated time 32169 ms	Ratio 1.3614202886283804
+[09:40:17 - main] [Cooja.java:1314] [INFO] - > Starting Cooja
+[09:40:17 - main] [Cooja.java:2855] [INFO] - External tools default settings: /external_tools_linux.config
+[09:40:17 - main] [Cooja.java:2885] [INFO] - External tools user settings: /home/user/.cooja.user.properties
+[09:40:18 - main] [Simulation.java:421] [INFO] - Simulation random seed: 123456
+[09:40:18 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:40:19 - main] [Visualizer.java:256] [INFO] - Registered external visualizer: org.contikios.cooja.plugins.skins.DGRMVisualizerSkin
+[09:40:20 - main] [TimeLine.java:567] [INFO] - Zoom level: 200.0 microseconds/pixel 
+[09:40:24 - Thread-0] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455525624461
+[09:41:07 - Thread-0] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455525667073	Duration: 42612 ms	Simulated time 36392 ms	Ratio 0.8540317281516944
+[09:41:18 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 100.0 microseconds/pixel 
+[09:41:30 - Thread-1] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455525690800
+[09:41:54 - Thread-1] [Msp802154Radio.java:191] [WARN] - Turning off radio while transmitting a packet
+[09:41:54 - Thread-1] [Msp802154Radio.java:127] [ERROR] - Bad outgoing sync sequence 0 3f 96 0 0
+[09:41:58 - Thread-1] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455525718538	Duration: 27738 ms	Simulated time 64076 ms	Ratio 2.3100439829836326
+[09:42:35 - Thread-2] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455525755272
+[09:42:51 - Thread-2] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455525771249	Duration: 15977 ms	Simulated time 80043 ms	Ratio 5.009889215747637
+[09:42:54 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 200.0 microseconds/pixel 
+[09:55:10 - Thread-3] [Simulation.java:421] [INFO] - Simulation random seed: 123456
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:10 - Thread-3] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[09:55:11 - Thread-3] [TimeLine.java:567] [INFO] - Zoom level: 200.0 microseconds/pixel 
+[09:55:12 - Thread-4] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455526512338
+[09:55:37 - Thread-4] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455526537709	Duration: 25371 ms	Simulated time 19968 ms	Ratio 0.7870403216270545
+[09:55:46 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 100.0 microseconds/pixel 
+[09:55:48 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 50.0 microseconds/pixel 
+[09:57:49 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 20.0 microseconds/pixel 
+[10:03:22 - Thread-5] [Simulation.java:421] [INFO] - Simulation random seed: 123456
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[10:03:22 - Thread-5] [TimeLine.java:567] [INFO] - Zoom level: 20.0 microseconds/pixel 
+[10:03:23 - Thread-6] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455527003321
+[10:03:36 - Thread-6] [Msp802154Radio.java:191] [WARN] - Turning off radio while transmitting a packet
+[10:03:36 - Thread-6] [Msp802154Radio.java:127] [ERROR] - Bad outgoing sync sequence 0 3f 96 0 0
+[10:03:36 - Thread-6] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455527016993	Duration: 13672 ms	Simulated time 8240 ms	Ratio 0.6026916325336454
+[10:04:32 - Thread-7] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455527072003
+[10:04:38 - Thread-7] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455527078211	Duration: 6208 ms	Simulated time 14445 ms	Ratio 2.3268363402061856
+[10:04:52 - Thread-8] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455527092222
+[10:05:17 - Thread-8] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455527117680	Duration: 25458 ms	Simulated time 39831 ms	Ratio 1.5645769502710347
+[10:05:22 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 50.0 microseconds/pixel 
+[10:05:23 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 100.0 microseconds/pixel 
+[10:05:27 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 200.0 microseconds/pixel 
+[10:05:35 - Thread-9] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455527135690
+[10:05:45 - Thread-9] [Msp802154Radio.java:191] [WARN] - Turning off radio while transmitting a packet
+[10:05:45 - Thread-9] [Msp802154Radio.java:127] [ERROR] - Bad outgoing sync sequence 0 3f 96 0 0
+[10:06:11 - Thread-9] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455527171955	Duration: 36265 ms	Simulated time 75992 ms	Ratio 2.095463945953399
+[10:06:14 - Thread-10] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455527174648
+[10:06:18 - Thread-10] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455527178678	Duration: 4030 ms	Simulated time 80021 ms	Ratio 19.856327543424317
