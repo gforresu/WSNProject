@@ -19,7 +19,14 @@ implementation {
 	components new Timer32C() as TimerOn;
 	components new Timer32C() as TimerSendBeacon;
 	components new Timer32C() as TimerSlots;
-	components new AMSenderC( AM_DATA) as SenderC;
+	
+	components new AMSenderC( AM_DATA) as SenderDataC;
+	components new AMSenderC( AM_JOIN_REQ) as SenderJoinReqC;
+	components new AMSenderC( AM_JOIN_REP) as SenderJoinRepC;
+	
+	components new AMReceiverC(AM_DATA) as ReceiverDataC;
+	components new AMReceiverC(AM_JOIN_REQ) as ReceiverJoinReqC;
+	components new AMReceiverC(AM_JOIN_REP) as ReceiverJoinRepC;
 	
 	////////
 	/*
@@ -35,7 +42,7 @@ implementation {
 	///////
 	
 	
-	components new AMReceiverC(AM_DATA) as ReceiverC;
+	
 
 	components RandomC;
 	components RandomMlcgC;
@@ -46,11 +53,17 @@ implementation {
 	AppP.TSPacket -> TSAM.TimeSyncPacket32khz;
 	AppP.SendBeacon -> TSAM.TimeSyncAMSend32khz[AM_BEACONMSG]; // wire to the beacon AM type
 	AppP.ReceiveBeacon -> TSAM.Receive[AM_BEACONMSG];       
-	//AppP.RadioBackoff -> RadioBackoff;
 	
 	
-	AppP.AMSend -> SenderC;
-	AppP.Receive -> ReceiverC;
+	AppP.SendJoinRequest -> SenderJoinReqC;
+	AppP.SendAssignedSlot -> SenderJoinRepC;
+	AppP.SendData -> SenderDataC;
+	
+	
+	AppP.ReceiveSlot -> ReceiverJoinRepC;
+	AppP.ReceiveData -> ReceiverDataC;
+	AppP.ReceiveJoinRequest -> ReceiverJoinReqC;
+	
 	App_interface = AppP.App_interface;
 	AppP.PacketLink -> PacketLinkC;
 	//AppP.TimerBeaconTx -> TimerBeaconTx;

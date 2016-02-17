@@ -5,6 +5,9 @@
 enum {
 	AM_BEACONMSG = 130,
 	AM_DATA = 150,
+	AM_JOIN_REQ = 151,
+	AM_JOIN_REP = 154,
+	
 	//AM_JOIN_REQ = 150,
 	//AM_JOIN_REP = 166,
 };
