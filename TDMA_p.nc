@@ -115,14 +115,11 @@ int misses;
 	*/
 	event void TimerEpoch.fired()
 	{
-		//epoch_reference_time = 0;
-		//joined=FALSE;
+
 		resync = FALSE;	
-		//join_booked=FALSE;
 				
 		call AMControl.start();
-		
-		
+
 		
 		if(IS_MASTER)
 		{
@@ -132,11 +129,9 @@ int misses;
 			
 		beacon_received = FALSE;
 		
-		
-		
 		call App_interface.start_tdma() ;
 		
-		
+	
 	}
 	
 	
@@ -187,13 +182,10 @@ int misses;
 				
 				if(! beacon_received )
 				{
-					//call AMControl.stop();
 					
 					retries -- ;
 					epoch_reference_time = epoch_reference_time + EPOCH_DURATION ;
-					//call TimerCheckForBeacon.startOneShotAt(epoch_reference_time, 2* SLOT_DURATION + SLOT_DURATION/10);
-					printf("[TDMA] OUCH!! NO BEACON received in this epoch\n");
-					
+										
 					
 					if(!joined)
 						send_join_request();
@@ -208,12 +200,12 @@ int misses;
 			
 			else
 			{
-				printf("[TDMA] OUCH!! No beacon received after 5 ATTEMPTS ... resync \n");
+				printf("[TDMA] No beacon received after 5 ATTEMPTS ... resync \n");
 				resynchronize();
 			
 			}
-	
 		
+					
 				
 			
 					
@@ -235,9 +227,9 @@ int misses;
 		}
 		
 		
-		seed = (seed + TOS_NODE_ID)%100;
+		//seed = (seed + TOS_NODE_ID)%100;
 		
-		call Seed.init(seed);
+		//call Seed.init(seed);
 		
 		if(IS_MASTER)
 		{
@@ -250,7 +242,7 @@ int misses;
 			//message_to_send = call AMSend.getPayload(&beacon, sizeof(BeaconMsg));
 			message_to_send = call SendBeacon.getPayload(&beacon, sizeof(BeaconMsg));
 			
-			call TimerSendBeacon.startOneShotAt( epoch_reference_time , SLOT_DURATION/5 + (call Random.rand32()%(SLOT_DURATION / 2)));
+			call TimerSendBeacon.startOneShotAt( epoch_reference_time , SLOT_DURATION/5 + (call Random.rand16()%(SLOT_DURATION / 2)));
 		
 		}
 		
@@ -366,11 +358,11 @@ int misses;
 
 			epoch_reference_time = call TSPacket.eventTime(msg);
 			
-			if(call TimerCheckForBeacon.isRunning())
-				call TimerCheckForBeacon.stop();
-				
-			call TimerCheckForBeacon.startPeriodicAt(epoch_reference_time, EPOCH_DURATION + SLOT_DURATION );
 			
+			//call TimerCheckForBeacon.startPeriodicAt(epoch_reference_time , EPOCH_DURATION + SLOT_DURATION );
+			call TimerCheckForBeacon.startPeriodicAt(epoch_reference_time , EPOCH_DURATION + SLOT_DURATION );
+			
+						
 			call TimerEpoch.startPeriodicAt(epoch_reference_time, EPOCH_DURATION);
 			
 			if( ! joined )	//not joined yet
@@ -401,7 +393,7 @@ int misses;
 		join_message = call SendJoinRequest.getPayload(&join, sizeof(Msg));
 				//slaves send join request at slot 1 
 		if (misses < 7)
-			random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION*6/8 )  + SLOT_DURATION/20 - SAFE_PADDING;
+			random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION*5/8 )  + SLOT_DURATION/30 - SAFE_PADDING;
 			
 		else
 			random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION/2 ) + SAFE_PADDING;
@@ -537,7 +529,7 @@ int misses;
 	event void SendBeacon.sendDone(message_t* msg, error_t err)
 	{
 		call TimerCheckJoined.startOneShotAt(epoch_reference_time, 2*SLOT_DURATION ) ; //waits 2 slots
-		
+				
 	}
 	
 
