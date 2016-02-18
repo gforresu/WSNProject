@@ -20,13 +20,11 @@ components RandomC;
 components CC2420ActiveMessageC;
 components ActiveMessageC;
 
-//AppP.Receive -> ReceiverC;
 AppP.AMControl -> ActiveMessageC;
-AppP.App_interface -> tdma ;
+AppP.AppInterface -> tdma ;
 AppP.Boot -> MainC;
 AppP.Random -> RandomC;
 AppP.TSPacket -> TSAM.TimeSyncPacket32khz;
-//AppP.SendBeacon -> TSAM.TimeSyncAMSend32khz[AM_BEACONMSG];
 AppP.TimerInitialize -> TimerInitialize;
 AppP.PacketLink -> PacketLinkC;
 

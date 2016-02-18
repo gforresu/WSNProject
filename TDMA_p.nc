@@ -4,7 +4,7 @@
 
 module TDMA_p {
 
-	provides interface App_interface;
+	provides interface AppInterface;
 	  
 
 	uses { 
@@ -44,7 +44,7 @@ module TDMA_p {
 implementation {
 
 #define SECOND 32768L
-#define EPOCH_DURATION (SECOND*2)
+
 #define IS_MASTER (TOS_NODE_ID==1)
 #define IS_SLAVE (TOS_NODE_ID != 1)
 #define SLOT_DURATION (SECOND/50)
@@ -54,7 +54,7 @@ implementation {
 
 #define MAX_SLOTS 17
 #define MAX_RETRIES 5
-
+#define EPOCH_DURATION (MAX_SLOTS*SLOT_DURATION)
 
 void start_epochs();
 int check_assigned_slot(int);
@@ -121,15 +121,13 @@ int misses;
 		call AMControl.start();
 
 		
-		if(IS_MASTER)
-		{
-			epoch_reference_time = call TimerSendBeacon.getNow();		
-			//epoch_reference_time += EPOCH_DURATION;
-		}
+		if(IS_MASTER)	
+			epoch_reference_time += EPOCH_DURATION;
+			
 			
 		beacon_received = FALSE;
 		
-		call App_interface.start_tdma() ;
+		call AppInterface.startTdma() ;
 		
 	
 	}
@@ -141,7 +139,6 @@ int misses;
 		call PacketLink.setRetries(&data, 1);
 		
 		call SendData.send( 1 , &data, sizeof(Msg));
-		//call AMSend.send( 1 , &data, sizeof(Msg));
 
 	}
 	
@@ -214,7 +211,7 @@ int misses;
 					
 	}
 	
-	command void App_interface.start_tdma()
+	command void AppInterface.startTdma()
 	{
 		////Called only the first time
 		if( ! initialize )
@@ -314,9 +311,7 @@ int misses;
 	event message_t* ReceiveSlot.receive(message_t* msg, void* payload, uint8_t len)
 	{
 		confirmation_message = (ConfMsg*) payload;
-					
-		
-									
+													
 		my_slot = confirmation_message->slot ;
 		
 		printf("Received slot number %d \n", my_slot);
@@ -394,14 +389,13 @@ int misses;
 	void send_join_request()
 	{
 	
-		//join_message = call AMSend.getPayload(&join, sizeof(Msg));
 	
 		join_message = call SendJoinRequest.getPayload(&join, sizeof(Msg));
 				//slaves send join request at slot 1 
 		random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION*5/8 )  + SLOT_DURATION/30 - SAFE_PADDING;
 			
 			
-		printf("Random delay %lu \n", random_delay); //+ EPOCH_DURATION*(call Random.rand32());//- SLOT_DURATION/10) ;
+		printf("Random delay %lu \n", random_delay);
 	
 	
 		
@@ -465,7 +459,7 @@ int misses;
 		
 		app_level_message.data = -1;
 		
-		app_level_message = signal App_interface.receive_packet();
+		app_level_message = signal AppInterface.receivePacket();
 		
 			
 		if(IS_SLAVE && (app_level_message.data != (-1) ))
@@ -475,12 +469,10 @@ int misses;
 				
 			data_message = call SendData.getPayload(&data, sizeof(Msg));
 			
-						
-			data_message -> is_data = TRUE;
-			
+		
 			data_message-> data = app_level_message.data;
 				
-			call TimerSlots.startOneShotAt(epoch_reference_time, start_slot + (call Random.rand16()%(SLOT_DURATION/4) + SLOT_DURATION/10  ));
+			call TimerSlots.startOneShotAt(epoch_reference_time, start_slot + SLOT_DURATION/5 + (call Random.rand16()%(SLOT_DURATION / 2))  );
 		
 		}
 		

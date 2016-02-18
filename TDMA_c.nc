@@ -2,7 +2,7 @@
 #include "messages.h"
 configuration TDMA_c {
 
-provides interface App_interface;
+provides interface AppInterface;
 
 
 }
@@ -10,7 +10,8 @@ implementation {
 	components TDMA_p as AppP;
 	components SerialPrintfC, SerialStartC;
 	components PacketLinkC;
-	//components new Timer32C() as TimerBeaconTx;
+	
+	//Timers
 	components new Timer32C() as TimerFirstSlot;
 	components new Timer32C() as TimerCheckForBeacon ;
 	components new Timer32C() as TimerOff;
@@ -21,28 +22,14 @@ implementation {
 	components new Timer32C() as TimerSlots;
 	
 	components new AMSenderC( AM_DATA) as SenderDataC;
-	components new AMSenderC( AM_JOIN_REQ) as SenderJoinReqC;
-	components new AMSenderC( AM_JOIN_REP) as SenderJoinRepC;
+	components new AMSenderC( AM_JOIN_REQ) as SenderJoinReqC; //Sends join request
+	components new AMSenderC( AM_JOIN_REP) as SenderJoinRepC; //Used by the master to send its reply
 	
 	components new AMReceiverC(AM_DATA) as ReceiverDataC;
 	components new AMReceiverC(AM_JOIN_REQ) as ReceiverJoinReqC;
 	components new AMReceiverC(AM_JOIN_REP) as ReceiverJoinRepC;
 	
-	////////
-	/*
-	components new AMSenderC( AM_JOIN_REQ) as SendJoinC;
-	components new AMSenderC( AM_JOIN_REP) as SendJoinReplyC;
-	components new AMReceiverC( AM_JOIN_REP) as ReceiveJoinReplyC;
-	components new AMReceiverC(AM_JOIN_REQ) as ReceiverJoinC;
-	
-	AppP.ReceiveJoin -> ReceiveJoinC;
-	AppP.SendJoin -> SendJoinC;
-	AppP.SendJoinReply -> SendJoinReplyC;
-	*/
-	///////
-	
-	
-	
+
 
 	components RandomC;
 	components RandomMlcgC;
@@ -64,7 +51,7 @@ implementation {
 	AppP.ReceiveData -> ReceiverDataC;
 	AppP.ReceiveJoinRequest -> ReceiverJoinReqC;
 	
-	App_interface = AppP.App_interface;
+	AppInterface = AppP.AppInterface;
 	AppP.PacketLink -> PacketLinkC;
 	//AppP.TimerBeaconTx -> TimerBeaconTx;
 	AppP.TimerOff -> TimerOff;

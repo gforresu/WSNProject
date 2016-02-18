@@ -7,7 +7,7 @@ module AppP
 {
 	uses interface Boot;
 	uses interface SplitControl as AMControl;
-	uses interface App_interface;
+	uses interface AppInterface;
 	uses interface Timer<T32khz> as TimerInitialize;
 	uses interface TimeSyncPacket<T32khz, uint32_t> as TSPacket;
 	uses interface PacketLink;
@@ -50,7 +50,7 @@ implementation
 	{
 		printf("[APP] TDMA layer started \n");
 		first_run = FALSE;
-		call App_interface.start_tdma();			
+		call AppInterface.startTdma();			
 			
 	}
 	
@@ -59,18 +59,22 @@ implementation
 	
 	
 	// Called from TDMA layer in each epoch to fetch a new packet, if any
-	event Msg App_interface.receive_packet()
+	event Msg AppInterface.receivePacket()
 	{
 				
-	//	if( (call Random.rand16()%2) == 0)					//decides wether or not 														
-		//	to_send.data = (call Random.rand16())%50 ;		//to send a packet if a random number is even  
+		to_send.data = (call Random.rand16())%50;
 		
-	//	else
-			to_send.data = 5; //no packets to send
+		if( to_send.data%2 )					//decides wether or not 														
+			 printf("[APP] A new message is available \n");	
+			 
+															//to send a packet if a random number is even  
 		
-	
-		//if(to_send.data == -1)
-		//	printf("[APP] There is NO packet to send! \n");
+		else
+		{
+			to_send.data = -1; //no packets to send
+			printf("[APP] There is NO packet to send! \n");
+		}
+			
 		
 		return to_send;
 	
