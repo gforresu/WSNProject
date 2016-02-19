@@ -14,6 +14,7 @@ module AppP
 	uses interface Random;
 	
 }
+
 implementation
 {
 	#define IS_MASTER (TOS_NODE_ID == 1)
@@ -28,9 +29,7 @@ implementation
 	{
 		// turn on the radio
 		call AMControl.start();
-		first_run = TRUE;
-
-		
+		first_run = TRUE;	
 	}
 	
 	
@@ -39,9 +38,8 @@ implementation
 	{
 			
 		if (IS_MASTER && first_run) 
-		{
-			call TimerInitialize.startOneShot(3*SECOND);	//call TDMA layer after 3 seconds				
-		}
+			call TimerInitialize.startOneShot(3*SECOND); //call TDMA layer after 3 seconds				
+		
 		
 	}
 
@@ -50,24 +48,23 @@ implementation
 	{
 		printf("[APP] TDMA layer started \n");
 		first_run = FALSE;
-		call AppInterface.startTdma();			
-			
+		call AppInterface.startTdma();						
 	}
 	
 
 	event void AMControl.stopDone(error_t err){	}
 	
 	
-	// Called from TDMA layer in each epoch to fetch a new packet, if any
+	// Called from TDMA layer by slaves to fetch a new packet, if any
 	event Msg AppInterface.receivePacket()
 	{
 				
 		to_send.data = (call Random.rand16())%50;
 		
-		if( to_send.data%2 )					//decides wether or not 														
-			 printf("[APP] A new message is available \n");	
+		if( to_send.data%2 )								//decides wether or not 														
+			 printf("[APP] A new message is available \n");	//to send a packet if a random number is even 
 			 
-															//to send a packet if a random number is even  
+															 
 		
 		else
 		{

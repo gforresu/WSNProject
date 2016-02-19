@@ -6,7 +6,8 @@ provides interface AppInterface;
 
 
 }
-implementation {
+implementation 
+{
 	components TDMA_p as AppP;
 	components SerialPrintfC, SerialStartC;
 	components PacketLinkC;
@@ -66,7 +67,6 @@ implementation {
 	AppP.AMPacket -> ActiveMessageC;
 	AppP.Random -> RandomC;
 	AppP.Seed -> RandomMlcgC.SeedInit;
-	
-	
+
 	
 }

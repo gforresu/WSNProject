@@ -9,7 +9,6 @@ module TDMA_p {
 
 	uses { 
 		interface ParameterInit<uint16_t> as Seed;
-		//interface Timer<T32khz> as TimerBeaconTx;
 		interface Timer<T32khz> as TimerOn;
 		interface Timer<T32khz> as TimerFirstSlot;
 		interface Timer<T32khz> as TimerCheckForBeacon;
@@ -24,9 +23,7 @@ module TDMA_p {
 		
 		interface SplitControl as AMControl;
 		interface PacketLink;
-		//interface Receive;
 		interface AMPacket;		
-		//interface AMSend;
 		interface AMSend as SendJoinRequest;
 		interface AMSend as SendAssignedSlot;
 		interface AMSend as SendData;
@@ -56,10 +53,11 @@ implementation {
 #define MAX_RETRIES 5
 #define EPOCH_DURATION (MAX_SLOTS*SLOT_DURATION)
 
-void startEpochs();
+void scheduleEpoch();
 int checkAssignedSlot(int);
 void resynchronize();
 void sendJoinRequest();
+void startNewEpoch();
 
 
 uint32_t epoch_reference_time;
@@ -98,8 +96,12 @@ bool initialize;
 
 	event void AMControl.startDone(error_t err){}
 
+
+	//+++++++++++TIMERS+++++++++++++++
+	
+	
 	/*
-		Choose a rundom time interval in slot=0 to send the beacon
+		Master sends a broadcast beacon  
 	*/
 	event void TimerSendBeacon.fired()
 	{	
@@ -107,28 +109,32 @@ bool initialize;
 	}
 	
 	/*
-		
+		Timer fired at the beginning of each epoch
 	*/
 	event void TimerEpoch.fired()
 	{
-
-		resync = FALSE;	
 				
 		call AMControl.start();
 
 		
-		if(IS_MASTER)	
-			epoch_reference_time += EPOCH_DURATION;
-			
+		if(IS_MASTER)
+		{
+			epoch_reference_time += EPOCH_DURATION; 
+			startNewEpoch();
+		}
+
 			
 		beacon_received = FALSE;
 		
-		call AppInterface.startTdma() ;
+		
+		//call AppInterface.startTdma() ; //
 		
 	
 	}
 	
-	
+	/*
+		Fired when slaves have to send some data in their slot
+	*/
 	event void TimerSlots.fired()
 	{
 				
@@ -139,12 +145,16 @@ bool initialize;
 	}
 	
 	
-	
-		event void TimerCheckJoined.fired()
+	/*
+		This timer is fired after slot 1.
+		Master controls, after slot 1, the number of joined slaves, turning off the radio in those slots not yes assigned.
+		Slaves, turn off the radio if master didn't reply and retry the join in the next epoch
+	*/
+	event void TimerCheckJoined.fired()
 	{
 	
 		if(IS_MASTER)
-			startEpochs();
+			scheduleEpoch(); //schedules when turning on/off the radio
 			
 		
 		else //slaves turn off their radio if master didn't reply
@@ -163,17 +173,13 @@ bool initialize;
 	
 	event void TimerCheckForBeacon.fired()
 	{
-		
-		printf("TimerCheckForBeacon \n");
-		
-		//if(!joined && IS_SLAVE)
-		
+
 			if(retries > 0 )
 			{
 	
 				
-				if(! beacon_received )
-				{
+				if(! beacon_received ) //No beacon receaved in this epoch so slaves upadate by their own				
+				{						//the reference time.
 					
 					retries -- ;
 					epoch_reference_time += EPOCH_DURATION ;
@@ -183,9 +189,7 @@ bool initialize;
 						sendJoinRequest();
 						
 					else //if it's already joined continues with his normal schedule
-						startEpochs();
-				
-					
+						scheduleEpoch();				
 					
 				}
 				
@@ -193,34 +197,92 @@ bool initialize;
 			}
 				
 			
-			else
+			else //Missed 5 beacon in a row
 			{
 				printf("[TDMA] No beacon received in 5 epochs ... resync \n");
 				resynchronize();
 			
-			}
-		
-					
-				
-			
-					
+			}	
 	}
 	
-	command void AppInterface.startTdma()
+	
+	/*
+		Slaves call the App level to check whether there is a new packet to send
+	
+	*/
+	event void TimerOn.fired() 
 	{
-		////Called only the first time
-		if( ! initialize )
+		
+		app_level_message.data = -1;
+		
+		app_level_message = signal AppInterface.receivePacket(); //calls the app to fetch a new packet if any
+		
+			
+		if(IS_SLAVE && (app_level_message.data != (-1) ))
 		{
 			
-			last_slot_assigned = 1; //slot 0 and 1 are reserved
-			//current_slot = 0; 
-			my_slot = -1;
-
-			initialize = TRUE;
+			call AMControl.start();
+				
+			data_message = call SendData.getPayload(&data, sizeof(Msg));
+			
+		
+			data_message-> data = app_level_message.data;
+				
+			call TimerSlots.startOneShotAt(epoch_reference_time, start_slot + SLOT_DURATION/5 + (call Random.rand16()%(SLOT_DURATION / 2))  );
 		
 		}
 		
+		else
+		{
+			call AMControl.stop();
+			printf("[TDMA] No data from App level: radio off\n");	
+		}
+	
 		
+	}
+	
+	/*
+		Called to stop the radio at the end of the assigned slot (by slaves) and 
+	*/
+	event void TimerOff.fired() 
+	{
+		
+		if(IS_MASTER)
+			printf("[TDMA][MASTER] %d slaves requested to join \n", last_slot_assigned );
+		
+		
+		call AMControl.stop();
+	
+	}
+
+	
+	/*
+		Used by slaves to send a join requests in slot 1.
+	*/
+	event void TimerFirstSlot.fired()
+	{		
+		printf("[TDMA] Sending join request - sendind to MASTER \n");
+		call PacketLink.setRetries(&join, 0);
+		call SendJoinRequest.send( 1 , &join, sizeof(Msg));	
+	}
+	
+	
+	
+	/*
+		Used to both initialize the node in master/slave mode and to schedule the beacon
+		
+	*/	
+	command void AppInterface.startTdma()
+	{
+		//Called only the first time
+		//if( ! initialize )
+		{		
+			last_slot_assigned = 1; //slot 0 and 1 are reserved
+			my_slot = -1;
+			initialize = TRUE;	
+			resync = FALSE;	
+		}
+			
 		//seed = (seed + TOS_NODE_ID)%100;
 		
 		//call Seed.init(seed);
@@ -228,15 +290,17 @@ bool initialize;
 		if(IS_MASTER)
 		{
 		
-			if( epoch_reference_time == 0)
-				epoch_reference_time = call TimerSendBeacon.getNow();
+			if( epoch_reference_time == 0) //master initializes its reference time during the first epoch
+			{
+				epoch_reference_time = call TimerSendBeacon.getNow(); //initialize the reference time
 			
-			call TimerEpoch.startPeriodicAt(epoch_reference_time, EPOCH_DURATION);
-
-			//message_to_send = call AMSend.getPayload(&beacon, sizeof(BeaconMsg));
-			message_to_send = call SendBeacon.getPayload(&beacon, sizeof(BeaconMsg));
+				call TimerEpoch.startPeriodicAt(epoch_reference_time, EPOCH_DURATION);
+			}
 			
-			call TimerSendBeacon.startOneShotAt( epoch_reference_time , SLOT_DURATION/5 + (call Random.rand16()%(SLOT_DURATION / 2)));
+			startNewEpoch();
+			//message_to_send = call SendBeacon.getPayload(&beacon, sizeof(BeaconMsg));
+			
+			//call TimerSendBeacon.startOneShotAt( epoch_reference_time , SLOT_DURATION/5 + (call Random.rand16()%(SLOT_DURATION / 3)));
 		
 		}
 		
@@ -259,8 +323,6 @@ bool initialize;
 			
 				if( checkAssignedSlot(from) == -1 )
 				{
-			
-					//printf("Received join from %d \n", from);
 			
 					confirmation_message = call SendAssignedSlot.getPayload(&conf, sizeof(ConfMsg));
 		
@@ -294,10 +356,7 @@ bool initialize;
 				}
 				
 			}
-						
-					
-					
-	
+
 
 		}
 		
@@ -318,7 +377,7 @@ bool initialize;
 		resync = FALSE;
 		joined=TRUE;
 		
-		startEpochs();	
+		scheduleEpoch();	
 		
 		retries = MAX_RETRIES;
 		
@@ -370,7 +429,7 @@ bool initialize;
 
 				
 			else //already joined
-				startEpochs();
+				scheduleEpoch();
 					
 		}	
 		
@@ -385,18 +444,14 @@ bool initialize;
 	
 	
 	void sendJoinRequest()
-	{
-	
-	
+	{	
 		join_message = call SendJoinRequest.getPayload(&join, sizeof(Msg));
 				//slaves send join request at slot 1 
 		random_delay = SLOT_DURATION + call Random.rand16()%(SLOT_DURATION*5/8 )  + SLOT_DURATION/30 - SAFE_PADDING;
 			
 			
 		printf("Random delay %lu \n", random_delay);
-	
-	
-		
+
 		call TimerFirstSlot.startOneShotAt(epoch_reference_time, random_delay); //send the request at random time 
 		
 		call TimerCheckJoined.startOneShotAt(epoch_reference_time, 2*SLOT_DURATION); //checks for master reply
@@ -405,25 +460,10 @@ bool initialize;
 	
 	
 	
-	//Slaves send join requests
-	event void TimerFirstSlot.fired()
-	{
-
-		
-		if(IS_SLAVE)
-		{
-			
-			printf("[TDMA] Sending join request - sendind to MASTER \n");
-			call PacketLink.setRetries(&join, 0);
-			call SendJoinRequest.send( 1 , &join, sizeof(Msg));	
-		}
-		
-			
-	}
 	
 
 	// initialise and schedules the slots
-	void startEpochs() 
+	void scheduleEpoch() 
 	{
 		
 		if(IS_SLAVE && ! resync) //slaves start their epochs
@@ -444,53 +484,54 @@ bool initialize;
 		
 		else if(IS_MASTER) //master switch off the radio			
 			call TimerOff.startOneShotAt(epoch_reference_time, SLOT_DURATION*(last_slot_assigned +1) );	
-		
-		
+			
 	}
+	
+	
+	/*
+		When slaves lost 5 beacon in a row they start the re-synchronization
+		turning always on the radio
+	*/
+	void resynchronize()
+	{
+		resync = TRUE;
+		
+		//if(! beacon_received)
+		epoch_reference_time += EPOCH_DURATION;
+			
+		call AMControl.start();
+	
+	}
+	
+	/*
+	
+		Called by the master to initialize a new epoch
+	*/
+	void startNewEpoch()
+	{
+		message_to_send = call SendBeacon.getPayload(&beacon, sizeof(BeaconMsg));
+			
+		call TimerSendBeacon.startOneShotAt( epoch_reference_time , SLOT_DURATION/5 + (call Random.rand16()%(SLOT_DURATION / 3)));	
+	}
+	
 
-	
-	//sends stuff...
-	event void TimerOn.fired() {
+	/*
+		This function returns the assigned slot if any.
+	*/
+	int checkAssignedSlot(int slave)
+	{
+		int i;
 		
-		app_level_message.data = -1;
+		for(i=0; i<= last_slot_assigned; i++)
+			if( slots[i] == slave )
+				return i ;
 		
-		app_level_message = signal AppInterface.receivePacket();
-		
+		return -1 ;
 			
-		if(IS_SLAVE && (app_level_message.data != (-1) ))
-		{
-			
-			call AMControl.start();
-				
-			data_message = call SendData.getPayload(&data, sizeof(Msg));
-			
-		
-			data_message-> data = app_level_message.data;
-				
-			call TimerSlots.startOneShotAt(epoch_reference_time, start_slot + SLOT_DURATION/5 + (call Random.rand16()%(SLOT_DURATION / 2))  );
-		
-		}
-		
-		else
-		{
-			call AMControl.stop();
-			printf("[TDMA] No data from App level: radio off\n");	
-		}
-			
-		
-		
-		
-		
-	}
-	event void TimerOff.fired() {
-		
-		if(IS_MASTER)
-			printf("[TDMA][MASTER] %d slaves requested to join \n", last_slot_assigned );
-		
-		
-		call AMControl.stop();
 	
 	}
+	
+
 	
 	
 	event void SendJoinRequest.sendDone(message_t* msg, error_t err)
@@ -521,31 +562,7 @@ bool initialize;
 	event void AMControl.stopDone(error_t err) {}
 	
 	
-	void resynchronize()
-	{
-		resync = TRUE;
-		
-		if(! beacon_received)
-			epoch_reference_time += EPOCH_DURATION;
-			
-		call AMControl.start();
 	
-	}
-	
-
-	
-	int checkAssignedSlot(int slave)
-	{
-		int i;
-		
-		for(i=0; i<= last_slot_assigned; i++)
-			if( slots[i] == slave )
-				return i ;
-		
-		return -1 ;
-			
-	
-	}
 	
 	
 

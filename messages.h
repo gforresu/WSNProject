@@ -10,19 +10,22 @@ enum {
 
 };
 //beacon
-typedef nx_struct BeaconMsg {
+typedef nx_struct BeaconMsg 
+{
 	nx_uint16_t current_slot;
 	
 } BeaconMsg;
 
 //data message
-typedef nx_struct Msg {
+typedef nx_struct Msg 
+{
 	nx_uint16_t data;
 
 } Msg;
 
 //Confirmation message
-typedef nx_struct ConfMsg {
+typedef nx_struct ConfMsg 
+{
 
 	nx_uint16_t slot;
 		
