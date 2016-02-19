@@ -56,10 +56,10 @@ implementation {
 #define MAX_RETRIES 5
 #define EPOCH_DURATION (MAX_SLOTS*SLOT_DURATION)
 
-void start_epochs();
-int check_assigned_slot(int);
+void startEpochs();
+int checkAssignedSlot(int);
 void resynchronize();
-void send_join_request();
+void sendJoinRequest();
 
 
 uint32_t epoch_reference_time;
@@ -85,7 +85,6 @@ int retries = MAX_RETRIES ;
 int last_slot_assigned;
 
 uint16_t slots[MAX_SLOTS];
-//int current_slot;
 bool joined;
 bool resync;
 bool beacon_received;
@@ -94,9 +93,6 @@ uint32_t random_delay;
 Msg app_level_message;
 bool incoming_message;
 bool initialize;
-bool join_booked;
-bool is_busy;
-int misses;
 
 
 
@@ -148,7 +144,7 @@ int misses;
 	{
 	
 		if(IS_MASTER)
-			start_epochs();
+			startEpochs();
 			
 		
 		else //slaves turn off their radio if master didn't reply
@@ -156,7 +152,6 @@ int misses;
 			if( ! joined)
 			{
 				printf("TimerCheckJoined- Master didn't reply during the first slot. Switching off the radio\n");
-				misses ++ ;
 				call AMControl.stop();
 			}
 				
@@ -181,14 +176,14 @@ int misses;
 				{
 					
 					retries -- ;
-					epoch_reference_time = epoch_reference_time + EPOCH_DURATION ;
+					epoch_reference_time += EPOCH_DURATION ;
 										
 					
 					if(!joined)
-						send_join_request();
+						sendJoinRequest();
 						
 					else //if it's already joined continues with his normal schedule
-						start_epochs();
+						startEpochs();
 				
 					
 					
@@ -220,8 +215,7 @@ int misses;
 			last_slot_assigned = 1; //slot 0 and 1 are reserved
 			//current_slot = 0; 
 			my_slot = -1;
-			
-			misses = 0;
+
 			initialize = TRUE;
 		
 		}
@@ -252,57 +246,62 @@ int misses;
 	event message_t* ReceiveJoinRequest.receive(message_t* msg, void* payload, uint8_t len)
 	{
 		join_message = (Msg*) payload;
-			from = call AMPacket.source(msg);
-			
-			current_time = call TimerSendBeacon.getNow();
+		from = call AMPacket.source(msg);
 		
-				atomic
-				{	
-					if(current_time < epoch_reference_time + 2*SLOT_DURATION) //master replies only during the slot 1
+		current_time = call TimerSendBeacon.getNow();
+		
+		atomic
+		{	
+			if(current_time < epoch_reference_time + 2*SLOT_DURATION) //master replies only during the slot 1
+			{
+			
+				call PacketLink.setRetries(&conf, 0 );
+			
+				if( checkAssignedSlot(from) == -1 )
+				{
+			
+					//printf("Received join from %d \n", from);
+			
+					confirmation_message = call SendAssignedSlot.getPayload(&conf, sizeof(ConfMsg));
+		
+					confirmation_message -> slot = last_slot_assigned +1;			
+																
+					if ( call SendAssignedSlot.send( from , &conf, sizeof(ConfMsg)) == SUCCESS)
 					{
-					
-						call PacketLink.setRetries(&conf, 0 );
-					
-						if( check_assigned_slot(from) == -1 )
-						{
-					
-							//printf("Received join from %d \n", from);
-					
-							confirmation_message = call SendAssignedSlot.getPayload(&conf, sizeof(ConfMsg));
-				
-							confirmation_message -> slot = last_slot_assigned +1;			
-																		
-							if ( call SendAssignedSlot.send( from , &conf, sizeof(ConfMsg)) == SUCCESS)
-							{
-								last_slot_assigned += 1;	
-								slots[last_slot_assigned] = from;
-									
-					
-								printf("[TDMA][MASTER]Join received from %d - Slot %d assigned \n", from , last_slot_assigned);	
-							}
-					
-						}
-					
-					
-						else
-						{
-							confirmation_message = call SendAssignedSlot.getPayload(&conf, sizeof(ConfMsg));
-				
-							confirmation_message -> slot = check_assigned_slot(from);			
-																					
-							call SendAssignedSlot.send( from , &conf, sizeof(ConfMsg));
-					
-						}
-						
+						last_slot_assigned += 1;	
+						slots[last_slot_assigned] = from;
+							
+			
+						printf("[TDMA][MASTER]Join received from %d - Slot %d assigned \n", from , last_slot_assigned);	
 					}
+					
+					else
+						printf("[TDMA][MASTER] Reply to slave not succeded \n ");
+			
+				}
+			
+			
+				else
+				{
+					confirmation_message = call SendAssignedSlot.getPayload(&conf, sizeof(ConfMsg));
+		
+					confirmation_message -> slot = checkAssignedSlot(from);			
+																			
+					if (call SendAssignedSlot.send( from , &conf, sizeof(ConfMsg)) != SUCCESS)
+						printf("[TDMA][MASTER] Reply to slave not succeded \n ");
+						
+			
+				}
+				
+			}
 						
 					
 					
 	
 
-				}
-				
-				return msg;
+		}
+		
+		return msg;
 		
 		
 	}
@@ -318,9 +317,8 @@ int misses;
 				 
 		resync = FALSE;
 		joined=TRUE;
-		misses = 0;
 		
-		start_epochs();	
+		startEpochs();	
 		
 		retries = MAX_RETRIES;
 		
@@ -361,18 +359,18 @@ int misses;
 			epoch_reference_time = call TSPacket.eventTime(msg);
 			
 			
-			call TimerCheckForBeacon.startPeriodicAt(epoch_reference_time , EPOCH_DURATION + SLOT_DURATION );
+			call TimerCheckForBeacon.startPeriodicAt(epoch_reference_time + SLOT_DURATION, EPOCH_DURATION );
 			
 						
 			call TimerEpoch.startPeriodicAt(epoch_reference_time, EPOCH_DURATION);
 			
 			if( ! joined )	//not joined yet
-				send_join_request();				
+				sendJoinRequest();				
 				
 
 				
 			else //already joined
-				start_epochs();
+				startEpochs();
 					
 		}	
 		
@@ -386,7 +384,7 @@ int misses;
 	}
 	
 	
-	void send_join_request()
+	void sendJoinRequest()
 	{
 	
 	
@@ -425,7 +423,7 @@ int misses;
 	
 
 	// initialise and schedules the slots
-	void start_epochs() 
+	void startEpochs() 
 	{
 		
 		if(IS_SLAVE && ! resync) //slaves start their epochs
@@ -444,11 +442,8 @@ int misses;
 		}
 		
 		
-		else if(IS_MASTER) //master switch off the radio
-		{		
-			
+		else if(IS_MASTER) //master switch off the radio			
 			call TimerOff.startOneShotAt(epoch_reference_time, SLOT_DURATION*(last_slot_assigned +1) );	
-		}
 		
 		
 	}
@@ -539,7 +534,7 @@ int misses;
 	
 
 	
-	int check_assigned_slot(int slave)
+	int checkAssignedSlot(int slave)
 	{
 		int i;
 		
