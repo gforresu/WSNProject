@@ -596,3 +596,56 @@
 [00:10:35 - Thread-53] [TimeLine.java:567] [INFO] - Zoom level: 500.0 microseconds/pixel 
 [00:10:37 - Thread-54] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455923437134
 [00:10:59 - Thread-54] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455923459154	Duration: 22020 ms	Simulated time 21455 ms	Ratio 0.9743415077202543
+[00:13:26 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 200.0 microseconds/pixel 
+[00:13:26 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 100.0 microseconds/pixel 
+[00:26:51 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 200.0 microseconds/pixel 
+[00:26:51 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 500.0 microseconds/pixel 
+[00:28:00 - Thread-55] [Simulation.java:421] [INFO] - Simulation random seed: 123456
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:28:00 - Thread-55] [TimeLine.java:567] [INFO] - Zoom level: 500.0 microseconds/pixel 
+[00:28:02 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 1000.0 microseconds/pixel 
+[00:28:02 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 2000.0 microseconds/pixel 
+[00:28:02 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 5000.0 microseconds/pixel 
+[00:28:04 - Thread-56] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455924484282
+[00:28:27 - Thread-56] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455924507436	Duration: 23154 ms	Simulated time 23716 ms	Ratio 1.024272263971668
+[00:28:29 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 2000.0 microseconds/pixel 
+[00:28:29 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 1000.0 microseconds/pixel 
+[00:28:30 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 500.0 microseconds/pixel 
+[00:29:41 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 1000.0 microseconds/pixel 
+[00:29:41 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 2000.0 microseconds/pixel 
+[00:29:43 - Thread-57] [AbstractRadioMedium.java:196] [FATAL] - Connection source turned off radio: org.contikios.cooja.mspmote.interfaces.Msp802154Radio@18609d4
+[00:29:44 - Thread-57] [Simulation.java:421] [INFO] - Simulation random seed: 123456
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [MspMote.java:235] [INFO] - Loading firmware from: /home/user/wsnlab/final_project/build/telosb/main.exe
+[00:29:44 - Thread-57] [TimeLine.java:567] [INFO] - Zoom level: 2000.0 microseconds/pixel 
+[00:29:45 - Thread-58] [Simulation.java:252] [INFO] - Simulation main loop started, system time: 1455924585100
+[00:30:05 - Thread-58] [Simulation.java:311] [INFO] - Simulation main loop stopped, system time: 1455924605963	Duration: 20863 ms	Simulated time 21325 ms	Ratio 1.0221444662800172
+[00:30:07 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 1000.0 microseconds/pixel 
+[00:30:07 - AWT-EventQueue-0] [TimeLine.java:567] [INFO] - Zoom level: 500.0 microseconds/pixel 

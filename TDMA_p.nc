@@ -47,8 +47,6 @@ implementation {
 #define SLOT_DURATION (SECOND/50)
 #define SAFE_PADDING (SECOND/500)
 
-#define ON_DURATION (SECOND/16)
-
 #define MAX_SLOTS 17
 #define MAX_RETRIES 5
 #define EPOCH_DURATION (MAX_SLOTS*SLOT_DURATION)
@@ -497,7 +495,7 @@ bool initialize;
 	{
 		message_to_send = call SendBeacon.getPayload(&beacon, sizeof(BeaconMsg));
 			
-		call TimerSendBeacon.startOneShotAt( epoch_reference_time , SLOT_DURATION/6 + (call Random.rand16()%(SLOT_DURATION / 3)));	
+		call TimerSendBeacon.startOneShotAt( epoch_reference_time , SLOT_DURATION/7 + (call Random.rand16()%(SLOT_DURATION / 3)));	
 	}
 	
 

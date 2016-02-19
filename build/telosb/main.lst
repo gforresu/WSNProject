@@ -1354,7 +1354,7 @@ Disassembly of section .text:
     4f24:	b0 12 50 81 	call	#0x8150	
     4f28:	0c 4f       	mov	r15,	r12	
     4f2a:	0d 43       	clr	r13		
-    4f2c:	3c 50 6d 00 	add	#109,	r12	;#0x006d
+    4f2c:	3c 50 5d 00 	add	#93,	r12	;#0x005d
     4f30:	0d 63       	adc	r13		
     4f32:	0d 12       	push	r13		
     4f34:	0c 12       	push	r12		

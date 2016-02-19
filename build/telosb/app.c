@@ -5584,7 +5584,7 @@ message_t * msg,
 
 
 uint8_t len);
-# 56 "TDMA_p.nc"
+# 54 "TDMA_p.nc"
 static void TDMA_p__scheduleEpoch(void );
 static int TDMA_p__checkAssignedSlot(int arg_0x4078ef08);
 static inline void TDMA_p__resynchronize(void );
@@ -5644,25 +5644,25 @@ static inline void TDMA_p__TimerSendBeacon__fired(void );
 
 
 static inline void TDMA_p__TimerEpoch__fired(void );
-#line 134
+#line 132
 static inline void TDMA_p__TimerSlots__fired(void );
-#line 149
+#line 147
 static inline void TDMA_p__TimerCheckJoined__fired(void );
-#line 170
+#line 168
 static inline void TDMA_p__TimerCheckForBeacon__fired(void );
-#line 209
+#line 207
 static inline void TDMA_p__TimerOn__fired(void );
-#line 243
+#line 241
 static inline void TDMA_p__TimerOff__fired(void );
-#line 258
+#line 256
 static inline void TDMA_p__TimerFirstSlot__fired(void );
-#line 271
+#line 269
 static inline void TDMA_p__AppInterface__startTdma(void );
-#line 303
+#line 301
 static inline message_t *TDMA_p__ReceiveJoinRequest__receive(message_t *msg, void *payload, uint8_t len);
-#line 361
+#line 359
 static inline message_t *TDMA_p__ReceiveSlot__receive(message_t *msg, void *payload, uint8_t len);
-#line 384
+#line 382
 static inline message_t *TDMA_p__ReceiveData__receive(message_t *msg, void *payload, uint8_t len);
 
 
@@ -5675,13 +5675,13 @@ static inline message_t *TDMA_p__ReceiveData__receive(message_t *msg, void *payl
 
 
 static inline message_t *TDMA_p__ReceiveBeacon__receive(message_t *msg, void *payload, uint8_t len);
-#line 438
+#line 436
 static void TDMA_p__sendJoinRequest(void );
-#line 454
+#line 452
 static void TDMA_p__scheduleEpoch(void );
-#line 483
+#line 481
 static inline void TDMA_p__resynchronize(void );
-#line 496
+#line 494
 static void TDMA_p__startNewEpoch(void );
 
 
@@ -5694,7 +5694,7 @@ static void TDMA_p__startNewEpoch(void );
 
 
 static int TDMA_p__checkAssignedSlot(int slave);
-#line 523
+#line 521
 static inline void TDMA_p__SendJoinRequest__sendDone(message_t *msg, error_t err);
 
 
@@ -16794,7 +16794,7 @@ inline static void TDMA_p__TimerCheckJoined__startOneShotAt(uint32_t t0, uint32_
 #line 129
 }
 #line 129
-# 540 "TDMA_p.nc"
+# 538 "TDMA_p.nc"
 static inline void TDMA_p__SendBeacon__sendDone(message_t *msg, error_t err)
 {
   TDMA_p__TimerCheckJoined__startOneShotAt(TDMA_p__epoch_reference_time, 2 * (32768L / 50));
@@ -16900,7 +16900,7 @@ inline static error_t /*Timer32P.VirtualizeTimerC*/VirtualizeTimerC__1__updateFr
 #line 67
 }
 #line 67
-# 534 "TDMA_p.nc"
+# 532 "TDMA_p.nc"
 static inline void TDMA_p__SendAssignedSlot__sendDone(message_t *msg, error_t err)
 {
 }
@@ -16919,7 +16919,7 @@ static inline void /*TDMA_c.SenderJoinRepC.SenderC.AMQueueEntryP*/AMQueueEntryP_
   /*TDMA_c.SenderJoinRepC.SenderC.AMQueueEntryP*/AMQueueEntryP__2__AMSend__sendDone(m, err);
 }
 
-# 523 "TDMA_p.nc"
+# 521 "TDMA_p.nc"
 static inline void TDMA_p__SendJoinRequest__sendDone(message_t *msg, error_t err)
 {
 }
@@ -16938,7 +16938,7 @@ static inline void /*TDMA_c.SenderJoinReqC.SenderC.AMQueueEntryP*/AMQueueEntryP_
   /*TDMA_c.SenderJoinReqC.SenderC.AMQueueEntryP*/AMQueueEntryP__1__AMSend__sendDone(m, err);
 }
 
-# 529 "TDMA_p.nc"
+# 527 "TDMA_p.nc"
 static inline void TDMA_p__SendData__sendDone(message_t *msg, error_t err)
 {
 }
@@ -17109,7 +17109,7 @@ inline static am_addr_t TDMA_p__AMPacket__source(message_t * amsg){
 #line 88
 }
 #line 88
-# 384 "TDMA_p.nc"
+# 382 "TDMA_p.nc"
 static inline message_t *TDMA_p__ReceiveData__receive(message_t *msg, void *payload, uint8_t len)
 {
   printf("[MASTER] Received a data message from slave %d \n", TDMA_p__AMPacket__source(msg));
@@ -17258,7 +17258,7 @@ inline static uint32_t TDMA_p__TimerSendBeacon__getNow(void ){
 #line 136
 }
 #line 136
-# 303 "TDMA_p.nc"
+# 301 "TDMA_p.nc"
 static inline message_t *TDMA_p__ReceiveJoinRequest__receive(message_t *msg, void *payload, uint8_t len)
 {
   TDMA_p__join_message = (Msg *)payload;
@@ -17307,7 +17307,7 @@ static inline message_t *TDMA_p__ReceiveJoinRequest__receive(message_t *msg, voi
             }
         }
     }
-#line 350
+#line 348
     __nesc_atomic_end(__nesc_atomic); }
 
 
@@ -17441,7 +17441,7 @@ inline static bool TDMA_p__TSPacket__isValid(message_t *msg){
 #line 48
 }
 #line 48
-# 395 "TDMA_p.nc"
+# 393 "TDMA_p.nc"
 static inline message_t *TDMA_p__ReceiveBeacon__receive(message_t *msg, void *payload, uint8_t len)
 {
 
@@ -20479,9 +20479,9 @@ static inline void AppP__AMControl__stopDone(error_t err)
 {
 }
 
-# 548 "TDMA_p.nc"
+# 546 "TDMA_p.nc"
 static inline void TDMA_p__AMControl__stopDone(error_t err)
-#line 548
+#line 546
 {
 }
 
@@ -20524,9 +20524,9 @@ static inline void AppP__AMControl__startDone(error_t err)
     }
 }
 
-# 97 "TDMA_p.nc"
+# 95 "TDMA_p.nc"
 static inline void TDMA_p__AMControl__startDone(error_t err)
-#line 97
+#line 95
 {
 }
 
@@ -20996,7 +20996,7 @@ inline static error_t TDMA_p__SendJoinRequest__send(am_addr_t addr, message_t * 
 #line 80
 }
 #line 80
-# 258 "TDMA_p.nc"
+# 256 "TDMA_p.nc"
 static inline void TDMA_p__TimerFirstSlot__fired(void )
 {
   printf("[TDMA] Sending join request - sendind to MASTER \n");
@@ -21019,7 +21019,7 @@ inline static error_t TDMA_p__AMControl__start(void ){
 #line 104
 }
 #line 104
-# 483 "TDMA_p.nc"
+# 481 "TDMA_p.nc"
 static inline void TDMA_p__resynchronize(void )
 {
   TDMA_p__resync = TRUE;
@@ -21029,7 +21029,7 @@ static inline void TDMA_p__resynchronize(void )
   TDMA_p__AMControl__start();
 }
 
-#line 170
+#line 168
 static inline void TDMA_p__TimerCheckForBeacon__fired(void )
 {
 
@@ -21078,7 +21078,7 @@ inline static error_t TDMA_p__AMControl__stop(void ){
 #line 130
 }
 #line 130
-# 243 "TDMA_p.nc"
+# 241 "TDMA_p.nc"
 static inline void TDMA_p__TimerOff__fired(void )
 {
 
@@ -21089,7 +21089,7 @@ static inline void TDMA_p__TimerOff__fired(void )
   TDMA_p__AMControl__stop();
 }
 
-#line 114
+#line 112
 static inline void TDMA_p__TimerEpoch__fired(void )
 {
 
@@ -21106,7 +21106,7 @@ static inline void TDMA_p__TimerEpoch__fired(void )
   TDMA_p__beacon_received = FALSE;
 }
 
-#line 149
+#line 147
 static inline void TDMA_p__TimerCheckJoined__fired(void )
 {
 
@@ -21234,7 +21234,7 @@ inline static Msg TDMA_p__AppInterface__receivePacket(void ){
 #line 7
 }
 #line 7
-# 209 "TDMA_p.nc"
+# 207 "TDMA_p.nc"
 static inline void TDMA_p__TimerOn__fired(void )
 {
 
@@ -21362,7 +21362,7 @@ inline static error_t TDMA_p__SendBeacon__send(am_addr_t addr, message_t *msg, u
 #line 64
 }
 #line 64
-# 106 "TDMA_p.nc"
+# 104 "TDMA_p.nc"
 static inline void TDMA_p__TimerSendBeacon__fired(void )
 {
   TDMA_p__SendBeacon__send(AM_BROADCAST_ADDR, &TDMA_p__beacon, sizeof(BeaconMsg ), TDMA_p__epoch_reference_time);
@@ -21423,7 +21423,7 @@ inline static error_t TDMA_p__SendData__send(am_addr_t addr, message_t * msg, ui
 #line 80
 }
 #line 80
-# 134 "TDMA_p.nc"
+# 132 "TDMA_p.nc"
 static inline void TDMA_p__TimerSlots__fired(void )
 {
 
@@ -21432,7 +21432,7 @@ static inline void TDMA_p__TimerSlots__fired(void )
   TDMA_p__SendData__send(1, &TDMA_p__data, sizeof(Msg ));
 }
 
-#line 271
+#line 269
 static inline void TDMA_p__AppInterface__startTdma(void )
 {
 
@@ -28415,7 +28415,7 @@ static am_addr_t CC2420ActiveMessageP__AMPacket__source(message_t *amsg)
   return __nesc_ntoh_leuint16(header->src.nxdata);
 }
 
-# 438 "TDMA_p.nc"
+# 436 "TDMA_p.nc"
 static void TDMA_p__sendJoinRequest(void )
 {
   TDMA_p__join_message = TDMA_p__SendJoinRequest__getPayload(&TDMA_p__join, sizeof(Msg ));
@@ -28444,7 +28444,7 @@ static void *CC2420TinyosNetworkP__ActiveSend__getPayload(message_t *msg, uint8_
     }
 }
 
-# 454 "TDMA_p.nc"
+# 452 "TDMA_p.nc"
 static void TDMA_p__scheduleEpoch(void )
 {
 
@@ -28562,7 +28562,7 @@ static error_t CC2420ControlP__CC2420Power__stopVReg(void )
   return SUCCESS;
 }
 
-# 507 "TDMA_p.nc"
+# 505 "TDMA_p.nc"
 static int TDMA_p__checkAssignedSlot(int slave)
 {
   int i;
@@ -28933,12 +28933,12 @@ static void /*Timer32P.VirtualizeTimerC*/VirtualizeTimerC__1__fireTimers(uint32_
   /*Timer32P.VirtualizeTimerC*/VirtualizeTimerC__1__updateFromTimer__postTask();
 }
 
-# 496 "TDMA_p.nc"
+# 494 "TDMA_p.nc"
 static void TDMA_p__startNewEpoch(void )
 {
   TDMA_p__message_to_send = TDMA_p__SendBeacon__getPayload(&TDMA_p__beacon, sizeof(BeaconMsg ));
 
-  TDMA_p__TimerSendBeacon__startOneShotAt(TDMA_p__epoch_reference_time, 32768L / 50 / 6 + TDMA_p__Random__rand16() % (32768L / 50 / 3));
+  TDMA_p__TimerSendBeacon__startOneShotAt(TDMA_p__epoch_reference_time, 32768L / 50 / 7 + TDMA_p__Random__rand16() % (32768L / 50 / 3));
 }
 
 # 81 "/home/user/tinyos/tos/chips/cc2420/csma/CC2420CsmaP.nc"
