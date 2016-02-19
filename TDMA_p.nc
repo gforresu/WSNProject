@@ -45,7 +45,7 @@ implementation {
 #define IS_MASTER (TOS_NODE_ID==1)
 #define IS_SLAVE (TOS_NODE_ID != 1)
 #define SLOT_DURATION (SECOND/50)
-#define SAFE_PADDING (SECOND/600)
+#define SAFE_PADDING (SECOND/500)
 
 #define ON_DURATION (SECOND/16)
 
@@ -125,10 +125,6 @@ bool initialize;
 
 			
 		beacon_received = FALSE;
-		
-		
-		//call AppInterface.startTdma() ; //
-		
 	
 	}
 	
@@ -174,7 +170,7 @@ bool initialize;
 	event void TimerCheckForBeacon.fired()
 	{
 
-			if(retries > 0 )
+			if(retries > 1 )
 			{
 	
 				
@@ -228,7 +224,7 @@ bool initialize;
 		
 			data_message-> data = app_level_message.data;
 				
-			call TimerSlots.startOneShotAt(epoch_reference_time, start_slot + SLOT_DURATION/5 + (call Random.rand16()%(SLOT_DURATION / 2))  );
+			call TimerSlots.startOneShotAt(epoch_reference_time, start_slot + SLOT_DURATION/5 + (call Random.rand16()%(SLOT_DURATION / 3))  );
 		
 		}
 		
@@ -248,7 +244,7 @@ bool initialize;
 	{
 		
 		if(IS_MASTER)
-			printf("[TDMA][MASTER] %d slaves requested to join \n", last_slot_assigned );
+			printf("[TDMA][MASTER] %d slaves requested to join \n", last_slot_assigned-1 );
 		
 		
 		call AMControl.stop();
@@ -298,10 +294,7 @@ bool initialize;
 			}
 			
 			startNewEpoch();
-			//message_to_send = call SendBeacon.getPayload(&beacon, sizeof(BeaconMsg));
-			
-			//call TimerSendBeacon.startOneShotAt( epoch_reference_time , SLOT_DURATION/5 + (call Random.rand16()%(SLOT_DURATION / 3)));
-		
+
 		}
 		
 	}
@@ -316,7 +309,7 @@ bool initialize;
 		
 		atomic
 		{	
-			if(current_time < epoch_reference_time + 2*SLOT_DURATION) //master replies only during the slot 1
+			if(current_time + SAFE_PADDING < epoch_reference_time + 2*SLOT_DURATION) //master replies only during the slot 1
 			{
 			
 				call PacketLink.setRetries(&conf, 0 );
@@ -351,8 +344,7 @@ bool initialize;
 																			
 					if (call SendAssignedSlot.send( from , &conf, sizeof(ConfMsg)) != SUCCESS)
 						printf("[TDMA][MASTER] Reply to slave not succeded \n ");
-						
-			
+							
 				}
 				
 			}
@@ -455,11 +447,7 @@ bool initialize;
 		call TimerFirstSlot.startOneShotAt(epoch_reference_time, random_delay); //send the request at random time 
 		
 		call TimerCheckJoined.startOneShotAt(epoch_reference_time, 2*SLOT_DURATION); //checks for master reply
-	
 	}
-	
-	
-	
 	
 
 	// initialise and schedules the slots
@@ -496,7 +484,6 @@ bool initialize;
 	{
 		resync = TRUE;
 		
-		//if(! beacon_received)
 		epoch_reference_time += EPOCH_DURATION;
 			
 		call AMControl.start();
@@ -504,14 +491,13 @@ bool initialize;
 	}
 	
 	/*
-	
 		Called by the master to initialize a new epoch
 	*/
 	void startNewEpoch()
 	{
 		message_to_send = call SendBeacon.getPayload(&beacon, sizeof(BeaconMsg));
 			
-		call TimerSendBeacon.startOneShotAt( epoch_reference_time , SLOT_DURATION/5 + (call Random.rand16()%(SLOT_DURATION / 3)));	
+		call TimerSendBeacon.startOneShotAt( epoch_reference_time , SLOT_DURATION/6 + (call Random.rand16()%(SLOT_DURATION / 3)));	
 	}
 	
 
