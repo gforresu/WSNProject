@@ -54,7 +54,6 @@ implementation
 	
 	AppInterface = AppP.AppInterface;
 	AppP.PacketLink -> PacketLinkC;
-	//AppP.TimerBeaconTx -> TimerBeaconTx;
 	AppP.TimerOff -> TimerOff;
 	AppP.TimerOn -> TimerOn;
 	AppP.TimerSlots -> TimerSlots ;

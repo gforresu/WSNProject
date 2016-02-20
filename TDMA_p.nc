@@ -268,14 +268,13 @@ bool initialize;
 	*/	
 	command void AppInterface.startTdma()
 	{
-		//Called only the first time
-		//if( ! initialize )
-		{		
-			last_slot_assigned = 1; //slot 0 and 1 are reserved
-			my_slot = -1;
-			initialize = TRUE;	
-			resync = FALSE;	
-		}
+
+				
+		last_slot_assigned = 1; //slot 0 and 1 are reserved
+		my_slot = -1;
+		initialize = TRUE;	
+		resync = FALSE;	
+		
 			
 		//seed = (seed + TOS_NODE_ID)%100;
 		
@@ -367,7 +366,7 @@ bool initialize;
 		resync = FALSE;
 		joined=TRUE;
 		
-		scheduleEpoch();	
+		scheduleEpoch();	//now slaves can follow the assigned schedule
 		
 		retries = MAX_RETRIES;
 		
@@ -378,18 +377,16 @@ bool initialize;
 			
 	}
 	
-	
+	/*
+			Used by master to receive the data from slave
+	*/
 	event message_t* ReceiveData.receive(message_t* msg, void* payload, uint8_t len)
 	{
 		printf("[MASTER] Received a data message from slave %d \n", call AMPacket.source(msg));
 		return msg;
 	}
 	
-	
-	
-	
-	
-	
+
 	event message_t* ReceiveBeacon.receive(message_t* msg, void* payload, uint8_t len)
 	{
 		// we have to check whether the packet is valid before retrieving the reference time
@@ -397,6 +394,7 @@ bool initialize;
 		if (call TSPacket.isValid(msg) && len == sizeof(BeaconMsg)) 
 		{
 			beacon_received = TRUE;
+			resync = FALSE;	
 			
 			retries = MAX_RETRIES ;
 			
@@ -405,12 +403,13 @@ bool initialize;
 			printf("[TDMA] [ %d ]- Beacon Received from %d  \n", TOS_NODE_ID, from);
 
 
-			epoch_reference_time = call TSPacket.eventTime(msg);
+			epoch_reference_time = call TSPacket.eventTime(msg); //slaves update their reference time
 			
-			
+			//checks whether the beacon is received. SLOT_DURATION is summed at the left field to evoid time drifting
+			//Replaces any current timer settings
 			call TimerCheckForBeacon.startPeriodicAt(epoch_reference_time + SLOT_DURATION, EPOCH_DURATION );
 			
-						
+			//schedules a new epoch			
 			call TimerEpoch.startPeriodicAt(epoch_reference_time, EPOCH_DURATION);
 			
 			if( ! joined )	//not joined yet
@@ -448,11 +447,11 @@ bool initialize;
 	}
 	
 
-	// initialise and schedules the slots
+	// initialises and schedules the slots
 	void scheduleEpoch() 
 	{
 		
-		if(IS_SLAVE && ! resync) //slaves start their epochs
+		if(IS_SLAVE && ! resync) //slaves start their normal epochs if resync mode is inactive
 		{
 		
 			call AMControl.stop();
@@ -461,14 +460,14 @@ bool initialize;
 			start_slot = my_slot * SLOT_DURATION ;
 			end_slot = start_slot + SLOT_DURATION ;
 
-						
+			//schedules the of/off radio period
 			call TimerOn.startOneShotAt(epoch_reference_time, start_slot );
 			call TimerOff.startOneShotAt(epoch_reference_time, end_slot );
 		
 		}
 		
 		
-		else if(IS_MASTER) //master switch off the radio			
+		else if(IS_MASTER) //master switch off the radio in not assigned slots			
 			call TimerOff.startOneShotAt(epoch_reference_time, SLOT_DURATION*(last_slot_assigned +1) );	
 			
 	}

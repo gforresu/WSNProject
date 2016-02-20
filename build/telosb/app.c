@@ -2917,7 +2917,7 @@ static void /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__receive
 # 100 "/home/user/tinyos/tos/interfaces/Send.nc"
 static void /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__Send__default__sendDone(
 # 51 "/home/user/tinyos/tos/lib/serial/SerialDispatcherP.nc"
-uart_id_t arg_0x40b78a08, 
+uart_id_t arg_0x40b77a08, 
 # 96 "/home/user/tinyos/tos/interfaces/Send.nc"
 message_t * msg, 
 
@@ -2935,7 +2935,7 @@ message_t *
 
 /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__Receive__default__receive(
 # 50 "/home/user/tinyos/tos/lib/serial/SerialDispatcherP.nc"
-uart_id_t arg_0x40b7840c, 
+uart_id_t arg_0x40b7740c, 
 # 71 "/home/user/tinyos/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -5658,11 +5658,11 @@ static inline void TDMA_p__TimerOff__fired(void );
 static inline void TDMA_p__TimerFirstSlot__fired(void );
 #line 269
 static inline void TDMA_p__AppInterface__startTdma(void );
-#line 301
+#line 300
 static inline message_t *TDMA_p__ReceiveJoinRequest__receive(message_t *msg, void *payload, uint8_t len);
-#line 359
+#line 358
 static inline message_t *TDMA_p__ReceiveSlot__receive(message_t *msg, void *payload, uint8_t len);
-#line 382
+#line 383
 static inline message_t *TDMA_p__ReceiveData__receive(message_t *msg, void *payload, uint8_t len);
 
 
@@ -5670,18 +5670,14 @@ static inline message_t *TDMA_p__ReceiveData__receive(message_t *msg, void *payl
 
 
 
-
-
-
-
 static inline message_t *TDMA_p__ReceiveBeacon__receive(message_t *msg, void *payload, uint8_t len);
-#line 436
+#line 435
 static void TDMA_p__sendJoinRequest(void );
-#line 452
+#line 451
 static void TDMA_p__scheduleEpoch(void );
-#line 481
+#line 480
 static inline void TDMA_p__resynchronize(void );
-#line 494
+#line 493
 static void TDMA_p__startNewEpoch(void );
 
 
@@ -5694,7 +5690,7 @@ static void TDMA_p__startNewEpoch(void );
 
 
 static int TDMA_p__checkAssignedSlot(int slave);
-#line 521
+#line 520
 static inline void TDMA_p__SendJoinRequest__sendDone(message_t *msg, error_t err);
 
 
@@ -6923,7 +6919,7 @@ static error_t /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__rece
 # 100 "/home/user/tinyos/tos/interfaces/Send.nc"
 static void /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__Send__sendDone(
 # 51 "/home/user/tinyos/tos/lib/serial/SerialDispatcherP.nc"
-uart_id_t arg_0x40b78a08, 
+uart_id_t arg_0x40b77a08, 
 # 96 "/home/user/tinyos/tos/interfaces/Send.nc"
 message_t * msg, 
 
@@ -6941,7 +6937,7 @@ message_t *
 
 /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__Receive__receive(
 # 50 "/home/user/tinyos/tos/lib/serial/SerialDispatcherP.nc"
-uart_id_t arg_0x40b7840c, 
+uart_id_t arg_0x40b7740c, 
 # 71 "/home/user/tinyos/tos/interfaces/Receive.nc"
 message_t * msg, 
 void * payload, 
@@ -16794,7 +16790,7 @@ inline static void TDMA_p__TimerCheckJoined__startOneShotAt(uint32_t t0, uint32_
 #line 129
 }
 #line 129
-# 538 "TDMA_p.nc"
+# 537 "TDMA_p.nc"
 static inline void TDMA_p__SendBeacon__sendDone(message_t *msg, error_t err)
 {
   TDMA_p__TimerCheckJoined__startOneShotAt(TDMA_p__epoch_reference_time, 2 * (32768L / 50));
@@ -16900,7 +16896,7 @@ inline static error_t /*Timer32P.VirtualizeTimerC*/VirtualizeTimerC__1__updateFr
 #line 67
 }
 #line 67
-# 532 "TDMA_p.nc"
+# 531 "TDMA_p.nc"
 static inline void TDMA_p__SendAssignedSlot__sendDone(message_t *msg, error_t err)
 {
 }
@@ -16919,7 +16915,7 @@ static inline void /*TDMA_c.SenderJoinRepC.SenderC.AMQueueEntryP*/AMQueueEntryP_
   /*TDMA_c.SenderJoinRepC.SenderC.AMQueueEntryP*/AMQueueEntryP__2__AMSend__sendDone(m, err);
 }
 
-# 521 "TDMA_p.nc"
+# 520 "TDMA_p.nc"
 static inline void TDMA_p__SendJoinRequest__sendDone(message_t *msg, error_t err)
 {
 }
@@ -16938,7 +16934,7 @@ static inline void /*TDMA_c.SenderJoinReqC.SenderC.AMQueueEntryP*/AMQueueEntryP_
   /*TDMA_c.SenderJoinReqC.SenderC.AMQueueEntryP*/AMQueueEntryP__1__AMSend__sendDone(m, err);
 }
 
-# 527 "TDMA_p.nc"
+# 526 "TDMA_p.nc"
 static inline void TDMA_p__SendData__sendDone(message_t *msg, error_t err)
 {
 }
@@ -17109,7 +17105,7 @@ inline static am_addr_t TDMA_p__AMPacket__source(message_t * amsg){
 #line 88
 }
 #line 88
-# 382 "TDMA_p.nc"
+# 383 "TDMA_p.nc"
 static inline message_t *TDMA_p__ReceiveData__receive(message_t *msg, void *payload, uint8_t len)
 {
   printf("[MASTER] Received a data message from slave %d \n", TDMA_p__AMPacket__source(msg));
@@ -17258,7 +17254,7 @@ inline static uint32_t TDMA_p__TimerSendBeacon__getNow(void ){
 #line 136
 }
 #line 136
-# 301 "TDMA_p.nc"
+# 300 "TDMA_p.nc"
 static inline message_t *TDMA_p__ReceiveJoinRequest__receive(message_t *msg, void *payload, uint8_t len)
 {
   TDMA_p__join_message = (Msg *)payload;
@@ -17307,7 +17303,7 @@ static inline message_t *TDMA_p__ReceiveJoinRequest__receive(message_t *msg, voi
             }
         }
     }
-#line 348
+#line 347
     __nesc_atomic_end(__nesc_atomic); }
 
 
@@ -17441,7 +17437,7 @@ inline static bool TDMA_p__TSPacket__isValid(message_t *msg){
 #line 48
 }
 #line 48
-# 393 "TDMA_p.nc"
+# 390 "TDMA_p.nc"
 static inline message_t *TDMA_p__ReceiveBeacon__receive(message_t *msg, void *payload, uint8_t len)
 {
 
@@ -17449,6 +17445,7 @@ static inline message_t *TDMA_p__ReceiveBeacon__receive(message_t *msg, void *pa
   if (TDMA_p__TSPacket__isValid(msg) && len == sizeof(BeaconMsg )) 
     {
       TDMA_p__beacon_received = TRUE;
+      TDMA_p__resync = FALSE;
 
       TDMA_p__retries = 5;
 
@@ -17458,6 +17455,7 @@ static inline message_t *TDMA_p__ReceiveBeacon__receive(message_t *msg, void *pa
 
 
       TDMA_p__epoch_reference_time = TDMA_p__TSPacket__eventTime(msg);
+
 
 
       TDMA_p__TimerCheckForBeacon__startPeriodicAt(TDMA_p__epoch_reference_time + 32768L / 50, 17 * (32768L / 50));
@@ -20479,9 +20477,9 @@ static inline void AppP__AMControl__stopDone(error_t err)
 {
 }
 
-# 546 "TDMA_p.nc"
+# 545 "TDMA_p.nc"
 static inline void TDMA_p__AMControl__stopDone(error_t err)
-#line 546
+#line 545
 {
 }
 
@@ -21019,7 +21017,7 @@ inline static error_t TDMA_p__AMControl__start(void ){
 #line 104
 }
 #line 104
-# 481 "TDMA_p.nc"
+# 480 "TDMA_p.nc"
 static inline void TDMA_p__resynchronize(void )
 {
   TDMA_p__resync = TRUE;
@@ -21437,12 +21435,11 @@ static inline void TDMA_p__AppInterface__startTdma(void )
 {
 
 
-  {
-    TDMA_p__last_slot_assigned = 1;
-    TDMA_p__my_slot = -1;
-    TDMA_p__initialize = TRUE;
-    TDMA_p__resync = FALSE;
-  }
+  TDMA_p__last_slot_assigned = 1;
+  TDMA_p__my_slot = -1;
+  TDMA_p__initialize = TRUE;
+  TDMA_p__resync = FALSE;
+
 
 
 
@@ -22042,9 +22039,9 @@ static inline void /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__
 }
 
 # 100 "/home/user/tinyos/tos/interfaces/Send.nc"
-inline static void /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__Send__sendDone(uart_id_t arg_0x40b78a08, message_t * msg, error_t error){
+inline static void /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__Send__sendDone(uart_id_t arg_0x40b77a08, message_t * msg, error_t error){
 #line 100
-  switch (arg_0x40b78a08) {
+  switch (arg_0x40b77a08) {
 #line 100
     case TOS_SERIAL_ACTIVE_MESSAGE_ID:
 #line 100
@@ -22054,7 +22051,7 @@ inline static void /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__
 #line 100
     default:
 #line 100
-      /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__Send__default__sendDone(arg_0x40b78a08, msg, error);
+      /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__Send__default__sendDone(arg_0x40b77a08, msg, error);
 #line 100
       break;
 #line 100
@@ -22134,13 +22131,13 @@ uint8_t len)
 }
 
 # 78 "/home/user/tinyos/tos/interfaces/Receive.nc"
-inline static message_t * /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__Receive__receive(uart_id_t arg_0x40b7840c, message_t * msg, void * payload, uint8_t len){
+inline static message_t * /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__Receive__receive(uart_id_t arg_0x40b7740c, message_t * msg, void * payload, uint8_t len){
 #line 78
   nx_struct message_t *__nesc_result;
 #line 78
 
 #line 78
-  switch (arg_0x40b7840c) {
+  switch (arg_0x40b7740c) {
 #line 78
     case TOS_SERIAL_ACTIVE_MESSAGE_ID:
 #line 78
@@ -22150,7 +22147,7 @@ inline static message_t * /*SerialDispatcherC.SerialDispatcherP*/SerialDispatche
 #line 78
     default:
 #line 78
-      __nesc_result = /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__Receive__default__receive(arg_0x40b7840c, msg, payload, len);
+      __nesc_result = /*SerialDispatcherC.SerialDispatcherP*/SerialDispatcherP__0__Receive__default__receive(arg_0x40b7740c, msg, payload, len);
 #line 78
       break;
 #line 78
@@ -28415,7 +28412,7 @@ static am_addr_t CC2420ActiveMessageP__AMPacket__source(message_t *amsg)
   return __nesc_ntoh_leuint16(header->src.nxdata);
 }
 
-# 436 "TDMA_p.nc"
+# 435 "TDMA_p.nc"
 static void TDMA_p__sendJoinRequest(void )
 {
   TDMA_p__join_message = TDMA_p__SendJoinRequest__getPayload(&TDMA_p__join, sizeof(Msg ));
@@ -28444,7 +28441,7 @@ static void *CC2420TinyosNetworkP__ActiveSend__getPayload(message_t *msg, uint8_
     }
 }
 
-# 452 "TDMA_p.nc"
+# 451 "TDMA_p.nc"
 static void TDMA_p__scheduleEpoch(void )
 {
 
@@ -28562,7 +28559,7 @@ static error_t CC2420ControlP__CC2420Power__stopVReg(void )
   return SUCCESS;
 }
 
-# 505 "TDMA_p.nc"
+# 504 "TDMA_p.nc"
 static int TDMA_p__checkAssignedSlot(int slave)
 {
   int i;
@@ -28933,7 +28930,7 @@ static void /*Timer32P.VirtualizeTimerC*/VirtualizeTimerC__1__fireTimers(uint32_
   /*Timer32P.VirtualizeTimerC*/VirtualizeTimerC__1__updateFromTimer__postTask();
 }
 
-# 494 "TDMA_p.nc"
+# 493 "TDMA_p.nc"
 static void TDMA_p__startNewEpoch(void )
 {
   TDMA_p__message_to_send = TDMA_p__SendBeacon__getPayload(&TDMA_p__beacon, sizeof(BeaconMsg ));

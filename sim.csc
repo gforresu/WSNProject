@@ -84,8 +84,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>96.40092043031353</x>
-        <y>82.95808592885362</y>
+        <x>103.96820973442114</x>
+        <y>92.2452137111675</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -120,8 +120,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>93.33834469602684</x>
-        <y>71.82867936082484</y>
+        <x>95.40215086987436</x>
+        <y>79.7399363605737</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -138,8 +138,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>94.27943306154276</x>
-        <y>94.07101558370276</y>
+        <x>103.91052853949789</x>
+        <y>104.04607875729914</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -192,8 +192,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>87.18372380077147</x>
-        <y>67.23505709911089</y>
+        <x>97.50275467000911</x>
+        <y>64.13934783833959</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -282,8 +282,8 @@
       <breakpoints />
       <interface_config>
         org.contikios.cooja.interfaces.Position
-        <x>93.17724557619748</x>
-        <y>49.090450257424706</y>
+        <x>96.27295483696881</x>
+        <y>52.530127213837254</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -374,7 +374,7 @@
       <showRadioRXTX />
       <showRadioHW />
       <showLEDs />
-      <zoomfactor>1000.0</zoomfactor>
+      <zoomfactor>500.0</zoomfactor>
     </plugin_config>
     <width>1418</width>
     <z>0</z>
